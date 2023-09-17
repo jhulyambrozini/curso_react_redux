@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
-
 import userIcon from '../../assets/usuario.svg';
 import { ReactComponent as DogSvg } from '../../assets/dogs.svg';
 import { HeaderContainer, LinkLogin, Login, Nav } from './style';
+import { useUser } from '../../context/UserContext';
 
 const Header = () => {
+  const { data } = useUser();
+
   return (
     <HeaderContainer>
       <Nav className="container">
@@ -16,12 +18,25 @@ const Header = () => {
           {<DogSvg />}
         </Link>
         <LinkLogin>
+        {data ? (
+             <Login
+             to="/account"
+             title="Clique aqui para ir para ir para home da conta"
+           >
+             {data.nome}
+           </Login>
+        ) : (
+          <Login
+             to="/login"
+             title="Clique aqui para ir para o início"
+           >
+             Logar/criar
+           </Login>
+        )}
           <Login
             to="/login"
-            title="Clique aqui para ir para o início"
-          >
-            Login / Criar
-          </Login>
+            title="Clique aqui para ir para a pagina de login"
+          ></Login>
           <img
             src={userIcon}
             alt="icon de usuário"

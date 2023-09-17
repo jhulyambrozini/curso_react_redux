@@ -7,7 +7,7 @@ type InputProps = ComponentProps<'input'> & {
     id: string
 }
 
-const Input = ({label, id, error, onBlur, onChange, value}: InputProps) => {
+const Input = ({label, id, error, onBlur, onChange, value, type}: InputProps) => {
   return (
     <InputGroup>
         <Label htmlFor={id}>{label}</Label>
@@ -17,6 +17,7 @@ const Input = ({label, id, error, onBlur, onChange, value}: InputProps) => {
         onChange={onChange}
         onBlur={onBlur}
         value={value}
+        type={type}
         />
         {error && <p className="error">{error}</p>}
     </InputGroup>

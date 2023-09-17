@@ -2,32 +2,38 @@ import { FormEventHandler } from "react"
 import Input from "../Input/Input"
 import Button from "../Button/Button"
 import useForm from "../../hooks/useForm"
+import { useUser } from "../../context/UserContext"
 
 export const LoginForm = () => {
-  const username = useForm('email')
-  const password = useForm()
+  const usernameValue = useForm()
+  const passwordValue = useForm()
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+  const {userLogin, error, loading} = useUser()
+
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault()
 
-    if(username.validate() && password.validate()){
-      fetch('https://dogsapi.origamid.dev/json/jwt-auth/v1/token', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({username, password})
-      })
+    if(usernameValue.validate() && passwordValue.validate()){
+
+      const username = usernameValue.value
+      const password = passwordValue.value
+
+      userLogin(username, password)
+
     }
   }
+
   return (
     <section>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
-        <Input type="text" label="Usuário" id="name" {...username}/>
-        <Input type="password" label="Senha" id="password" {...password}/>
+        <Input type="text" label="Usuário" id="name" {...usernameValue}/>
+        <Input type="password" label="Senha" id="password" {...passwordValue}/>
         
-        <Button>Enviar</Button>
+        {loading ?  <Button disabled>Carregando...</Button> : <Button>Entrar</Button>}
+       
+        {error && <p>{error}</p>}
       </form>
     </section>
   )

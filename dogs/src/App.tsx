@@ -8,18 +8,27 @@ import Login from './pages/Login';
 
 import { GlobalStyle } from './styles';
 
+import { UserStorage } from './context/UserContext';
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <GlobalStyle />
-        <Header />
-        <Routes>
-          <Route path='/' element={<Home />}/>
-          <Route path='/login/*' element={<Login />}/>
-        </Routes>
-        <Footer />
+        <UserStorage>
+          <GlobalStyle />
+          <Header />
+          <Routes>
+            <Route
+              path="/"
+              element={<Home />}
+            />
+            <Route
+              path="/login/*"
+              element={<Login />}
+            />
+          </Routes>
+          <Footer />
+        </UserStorage>
       </BrowserRouter>
     </>
   );
