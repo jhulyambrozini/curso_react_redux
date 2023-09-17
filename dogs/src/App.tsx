@@ -4,7 +4,7 @@ import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 
 import Home from './pages/Home';
-import Login from './pages/Login';
+import Login from './pages/Login/Login';
 
 import { GlobalStyle } from './styles';
 

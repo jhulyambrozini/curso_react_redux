@@ -3,6 +3,7 @@ export const BASE_URL = 'https://dogsapi.origamid.dev/json'
 type DataBody = {
     username: string
     password: string
+    email?: string
 }
 
 export const TOKEN_POST = (bodyData: DataBody) => {
@@ -42,6 +43,21 @@ export const TOKEN_VALIDATE_POST = (token: string) => {
                 Authorization: 'Bearer ' + token
             },
           
+        }
+    }
+}
+
+export const USER_POST = (bodyData: DataBody) => {
+    const bodyJson = JSON.stringify(bodyData)
+    const body = bodyJson.replace(/\\/g, '')
+    return {
+        url: BASE_URL + '/api/user',
+        options: {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        body
         }
     }
 }
