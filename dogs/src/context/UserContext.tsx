@@ -69,6 +69,8 @@ export const UserStorage = ({children}: PropsWithChildren) => {
             } finally {
                 setLoading(false)
             }
+        } else {
+            setLogin(false)
         }
       }
       autoLogin()
@@ -87,7 +89,7 @@ export const UserStorage = ({children}: PropsWithChildren) => {
     const userLogin = async (username: string, password: string) => {
         try {
             setError(null)
-            setLoading(false)
+            setLoading(true)
             const {url, options} = TOKEN_POST({username, password})
             const tokenRes = await fetch(url, options)
             if(!tokenRes.ok) throw new Error(`Error ${tokenRes.statusText}`)

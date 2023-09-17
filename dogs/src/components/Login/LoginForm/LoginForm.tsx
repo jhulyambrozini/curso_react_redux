@@ -9,9 +9,7 @@ import { CreateAccount, LinkLost, LoginFormStyle } from "./style"
 export const LoginForm = () => {
   const usernameValue = useForm()
   const passwordValue = useForm()
-
   const {userLogin, error, loading} = useUser()
-
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault()
@@ -22,7 +20,6 @@ export const LoginForm = () => {
       const password = passwordValue.value
 
       userLogin(username, password)
-
     }
   }
 

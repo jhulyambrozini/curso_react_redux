@@ -9,6 +9,8 @@ import Login from './pages/Login/Login';
 import { GlobalStyle } from './styles';
 
 import { UserStorage } from './context/UserContext';
+import User from './pages/User';
+import ProtectedRouter from './helpers/ProtectedRouter';
 
 function App() {
   return (
@@ -23,8 +25,16 @@ function App() {
               element={<Home />}
             />
             <Route
-              path="/login/*"
+              path="login/*"
               element={<Login />}
+            />
+            <Route
+              path="account/*"
+              element={
+              <ProtectedRouter>
+                <User />
+              </ProtectedRouter>
+              }
             />
           </Routes>
           <Footer />

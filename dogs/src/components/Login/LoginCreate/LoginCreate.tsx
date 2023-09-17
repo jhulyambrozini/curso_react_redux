@@ -30,7 +30,7 @@ export const LoginCreate = () => {
 
   return (
     <section>
-      <h1>Cadastre-se</h1>
+      <h1 className='title'>Cadastre-se</h1>
       <form onSubmit={handleSubmit}>
         <Input
           id="username"
