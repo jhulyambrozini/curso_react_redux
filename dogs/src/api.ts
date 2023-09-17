@@ -61,3 +61,18 @@ export const USER_POST = (bodyData: DataBody) => {
         }
     }
 }
+
+
+export const PHOTO_POST = (formData: FormData, token: string) => {
+    
+    return {
+        url: BASE_URL + '/api/photo',
+        options: {
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + token
+            },
+        body: formData
+        }
+    }
+}

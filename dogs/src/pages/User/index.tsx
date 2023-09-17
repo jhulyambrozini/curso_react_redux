@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom"
-import UserPhotoPost from "../../components/User/UserPhotoPost"
+import UserPhotoPost from "../../components/User/UserPhotoPost/UserPhotoPost"
 import UserStatistics from "../../components/User/UserStatistics"
 import Feed from "../../components/Feed/Feed"
 import UserHeader from "../../components/User/UserHeader/UserHeader"

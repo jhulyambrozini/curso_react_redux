@@ -4,10 +4,14 @@ const validation = {
     email: {
         regex: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
         message: 'Preencha um email válido'
+    },
+    number: {
+        regex: /^\d+$/,
+        message: 'Utilize apenas números'
     }
 }
 
-const useForm = (type?: 'email') => {
+const useForm = (type?: 'email' | 'number') => {
     const [value, setValue] = useState('')
     const [error, setError] = useState<string | null>(null)
 
