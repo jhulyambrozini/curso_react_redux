@@ -47,8 +47,7 @@ export const UserStorage = ({children}: PropsWithChildren) => {
         setLoading(false)
         setLogin(null)
         window.localStorage.removeItem('token')
-        navigate('/login')
-    }, [navigate])
+    }, [])
 
 
     useEffect(() => {

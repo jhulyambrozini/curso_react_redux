@@ -4,12 +4,12 @@ import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 
 import Home from './pages/Home';
-import Login from './pages/Login/Login';
+import Login from './pages/Login';
+import User from './pages/User';
 
 import { GlobalStyle } from './styles';
 
 import { UserStorage } from './context/UserContext';
-import User from './pages/User';
 import ProtectedRouter from './helpers/ProtectedRouter';
 
 function App() {

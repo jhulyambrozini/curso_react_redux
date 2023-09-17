@@ -78,6 +78,64 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0 auto;
     }
 
+    .mobileButtonActive {
+        outline: none;
+        background-color: white;
+        box-shadow: 0 0 0 3px ${colors.hover};
+        border-color: ${colors.primmary};
+        color: ${colors.primmary};
+    }
+
+    .mobileButtonActive::after{
+        transform: rotate(-90deg);
+        width: 4px;
+        height: 4px;
+        box-shadow: 0 8px currentColor, 0 -8px currentColor;
+        transition: .2s;
+    }
+
+    .navMobile {
+        display: block;
+        position: absolute;
+        top: 70px;
+        right: 0px;
+        padding: 0 1rem;
+        background-color: white;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        border-radius: .2rem;
+        transform: translateX(-10px);
+        opacity: 0;
+        pointer-events: none;
+
+        a, button {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            background: none;
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid #eee;
+            padding: .5rem 0;
+            cursor: pointer;
+        }
+        
+        svg {
+            margin-right: .5rem;
+        }
+
+        a:hover svg > *, button:hover svg > * {
+            fill: ${colors.primmary};
+        }
+    }
+
+    .navMobileActive {
+        transition: .3s;
+        transform: initial;
+        z-index: 100;
+        opacity: 1;
+        pointer-events: initial;
+    }
+
     .animeLeft{
         opacity: 0;
         transform: translateX(-20px);
