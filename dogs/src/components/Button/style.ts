@@ -19,6 +19,8 @@ export const ButtonContainer = styled.button`
     }
 
     &:disabled {
+        outline: none;
+        box-shadow: none;
         cursor: wait;
         opacity: 0.5;
     }
