@@ -3,6 +3,7 @@ import { AttributesList, Author, DatailsContainer, ImageContainer, PhotoContaine
 import PhotoComments from "../PhotoComents/PhotoComments"
 import { useUser } from "../../../context/UserContext"
 import PhotoDelete from "../PhotoDelete/PhotoDelete"
+import Image from "../../../helpers/Image/Image"
 
 type PhotoContentProps = {
   data: DataFeedPhoto
@@ -14,8 +15,9 @@ const PhotoContent = ({data}: PhotoContentProps) => {
   
   return (
     <PhotoContainer>
+      
       <ImageContainer>
-        <img src={photo.src} alt={photo.title} />
+        <Image src={photo.src} alt={photo.title}  />
       </ImageContainer>
       <DatailsContainer>
         <div>

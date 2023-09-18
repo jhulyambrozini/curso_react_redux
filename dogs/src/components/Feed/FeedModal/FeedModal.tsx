@@ -3,7 +3,7 @@ import useFetch from "../../../hooks/useFetch"
 import { PHOTOS_GET, PHOTO_GET } from "../../../api"
 
 import Error from "../../../helpers/Error"
-import Loading from "../../../helpers/Loading"
+import Loading from "../../../helpers/Loading/Loading"
 import PhotoContent from "../../Photo/PhotoContent/PhotoContent"
 import { Modal } from "./style"
 

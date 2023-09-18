@@ -3,7 +3,7 @@ import FeedPhotoItem from '../FeedPhotoItem/FeedPhotoItem';
 import useFetch from '../../../hooks/useFetch';
 import { PHOTOS_GET } from '../../../api';
 import Error from '../../../helpers/Error';
-import Loading from '../../../helpers/Loading';
+import Loading from '../../../helpers/Loading/Loading';
 import { FeedList } from './style';
 
 type FeedPhotosProps = {
