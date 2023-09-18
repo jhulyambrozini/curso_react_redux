@@ -118,3 +118,15 @@ export const COMMENT_POST = (id: number, body: {comment: string } , token: strin
        
     }
 }
+
+export const PHOTO_DELETE = (id: number, token: string) => {
+    return {
+        url: `${BASE_URL}/api/photo/${id}`,
+        options: {
+            method: 'DELETE',
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
+    }
+}

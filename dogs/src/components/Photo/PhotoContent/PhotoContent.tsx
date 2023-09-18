@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
 import { AttributesList, Author, DatailsContainer, ImageContainer, PhotoContainer, Viwes } from "./style"
 import PhotoComments from "../PhotoComents/PhotoComments"
+import { useUser } from "../../../context/UserContext"
+import PhotoDelete from "../PhotoDelete/PhotoDelete"
 
 type PhotoContentProps = {
   data: DataFeedPhoto
@@ -8,6 +10,7 @@ type PhotoContentProps = {
 
 const PhotoContent = ({data}: PhotoContentProps) => {
   const {photo, comments} = data
+  const user = useUser()
   
   return (
     <PhotoContainer>
@@ -17,7 +20,10 @@ const PhotoContent = ({data}: PhotoContentProps) => {
       <DatailsContainer>
         <div>
           <Author>
-            <Link to={`/profile/${photo.author}`}>@{photo.author}</Link>
+            {user.data && user.data.username === photo.author ? <PhotoDelete id={photo.id} /> : (
+              <Link to={`/profile/${photo.author}`}>@{photo.author}</Link>
+            )}
+            
             <Viwes>{photo.acessos}</Viwes>
           </Author>
 
