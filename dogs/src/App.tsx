@@ -17,11 +17,12 @@ import NotFound from './pages/NotFound/NotFound';
 
 function App() {
   return (
-    <>
+    <div className='App'>
       <BrowserRouter>
         <UserStorage>
           <GlobalStyle />
           <Header />
+          <main className='AppBody'>
           <Routes>
             <Route
               path="/"
@@ -52,10 +53,11 @@ function App() {
               element={<NotFound />}
             />
           </Routes>
+          </main>
           <Footer />
         </UserStorage>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 
