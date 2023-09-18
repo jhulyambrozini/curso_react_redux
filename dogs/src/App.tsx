@@ -12,6 +12,7 @@ import { GlobalStyle } from './styles';
 
 import { UserStorage } from './context/UserContext';
 import ProtectedRouter from './helpers/ProtectedRouter';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -40,6 +41,10 @@ function App() {
             <Route
               path="photo/:id"
               element={<Photo />}
+            />
+            <Route
+              path="profile/:user"
+              element={<Profile />}
             />
           </Routes>
           <Footer />

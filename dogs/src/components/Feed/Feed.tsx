@@ -3,7 +3,7 @@ import FeedModal from './FeedModal/FeedModal';
 import FeedPhotos from './FeedPhotos/FeedPhotos';
 
 type FeedProps = {
-  user: number
+  user: number | string
 };
 
 const Feed = ({ user }: FeedProps) => {

@@ -5,11 +5,12 @@ import { PHOTOS_GET } from '../../../api';
 import Error from '../../../helpers/Error';
 import Loading from '../../../helpers/Loading/Loading';
 import { FeedList } from './style';
+import { string } from 'prop-types';
 
 type FeedPhotosProps = {
   setModalPhoto: Dispatch<SetStateAction<null | Data>>;
   setInfinite: Dispatch<SetStateAction<boolean>>;
-  user: number
+  user: number | string
   page: number
 };
 
