@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { AttributesList, Author, DatailsContainer, ImageContainer, PhotoContainer, Viwes } from "./style"
-import PhotoComments from "../PhotoComments"
+import PhotoComments from "../PhotoComents/PhotoComments"
 
 type PhotoContentProps = {
   data: DataFeedPhoto

@@ -5,10 +5,11 @@ import {
   SetStateAction,
   useState,
 } from 'react';
-import { ReactComponent as SendIcon } from '../../assets/enviar.svg';
-import useFetch from '../../hooks/useFetch';
-import { COMMENT_POST } from '../../api';
-import Error from '../../helpers/Error';
+import { ReactComponent as SendIcon } from '../../../assets/enviar.svg';
+import useFetch from '../../../hooks/useFetch';
+import { COMMENT_POST } from '../../../api';
+import Error from '../../../helpers/Error';
+import { CommentButton, CommentForm, CommentTextarea } from './style';
 
 type PhotoCommentsFormProps = {
   id: number;
@@ -43,19 +44,19 @@ const PhotoCommentsForm = ({ id, setComments }: PhotoCommentsFormProps) => {
     setComment(target.value);
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <textarea
+    <CommentForm onSubmit={handleSubmit}>
+      <CommentTextarea
         id="comment"
         name="comment"
         placeholder="Comente..."
         value={comment}
         onChange={handleComment}
       />
-      <button>
+      <CommentButton>
         <SendIcon />
-      </button>
+      </CommentButton>
       <Error error={error}/>
-    </form>
+    </CommentForm>
   );
 };
 
