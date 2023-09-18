@@ -6,6 +6,7 @@ import { USER_POST } from '../../../api';
 import { useUser } from '../../../context/UserContext';
 import useFetch from '../../../hooks/useFetch';
 import Error from '../../../helpers/Error';
+import Head from '../../../helpers/Head';
 
 export const LoginCreate = () => {
   const username = useForm();
@@ -30,6 +31,7 @@ export const LoginCreate = () => {
 
   return (
     <section>
+       <Head title='Criar Conta' description='Página para criar nova conta no site Dogs' />
       <h1 className='title'>Cadastre-se</h1>
       <form onSubmit={handleSubmit}>
         <Input

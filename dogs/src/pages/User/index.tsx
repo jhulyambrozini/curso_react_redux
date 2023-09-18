@@ -5,6 +5,7 @@ import Feed from "../../components/Feed/Feed"
 import UserHeader from "../../components/User/UserHeader/UserHeader"
 import { useUser } from "../../context/UserContext"
 import NotFound from "../NotFound/NotFound"
+import Head from "../../helpers/Head"
 
 const User = () => {
   const {data} = useUser()
@@ -12,6 +13,7 @@ const User = () => {
   if(!data) return null
   return (
     <section className="container">
+      <Head title="Minha conta" description="Feed de fotos do prório usuário" />
       <UserHeader />
       <Routes>
         <Route path='/' element={<Feed user={data?.id}/>}/>

@@ -8,6 +8,7 @@ import { PhotoPostContainer, PreviewPhoto } from "./style"
 
 import Error from "../../../helpers/Error"
 import { useNavigate } from "react-router-dom"
+import Head from "../../../helpers/Head"
 
 type ImageState = {
   raw: File | null
@@ -55,6 +56,7 @@ const UserPhotoPost = () => {
 
   return (
     <PhotoPostContainer className="animeLeft">
+      <Head title="Poste sua foto" description="Formulário para envio de novas fotos" />
       <form onSubmit={handleSubmit}>
         <Input id="name" label="Nome" type="text" {...name}/>
         <Input id="weight" label="Peso" type="number" {...weight}/>

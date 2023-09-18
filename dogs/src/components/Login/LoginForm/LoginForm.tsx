@@ -5,6 +5,7 @@ import useForm from "../../../hooks/useForm"
 import { useUser } from "../../../context/UserContext"
 import Error from "../../../helpers/Error"
 import { CreateAccount, LinkLost, LoginFormStyle } from "./style"
+import Head from "../../../helpers/Head"
 
 export const LoginForm = () => {
   const usernameValue = useForm()
@@ -25,6 +26,7 @@ export const LoginForm = () => {
 
   return (
     <section className="animeLeft">
+      <Head title='Login' description='Página de login' />
       <h1 className="title">Login</h1>
       <LoginFormStyle onSubmit={handleSubmit}>
         <Input type="text" label="Usuário" id="name" {...usernameValue}/>

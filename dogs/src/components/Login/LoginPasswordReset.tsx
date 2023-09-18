@@ -6,6 +6,7 @@ import { PASSWORD_RESET } from '../../api'
 import useFetch from '../../hooks/useFetch'
 import Error from '../../helpers/Error'
 import { useNavigate } from 'react-router-dom'
+import Head from '../../helpers/Head'
 
 const LoginPasswordReset = () => {
   const [login, setLogin] = useState('')
@@ -39,6 +40,7 @@ const LoginPasswordReset = () => {
   }
   return (
     <div>
+       <Head title='Resetar a senha' description='Página par resetar senha do usúario no site Dogs' />
       <h1 className='title'>Resete a Senha</h1>
       <form onSubmit={handleSubmit}>
       <Input label='Nova Senha' id='password' type='password' {...password}/>
