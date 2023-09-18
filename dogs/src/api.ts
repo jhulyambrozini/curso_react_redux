@@ -84,7 +84,7 @@ export const PHOTO_POST = (formData: FormData, token: string) => {
     }
 }
 
-export const PHOTOS_GET = (page: string, total: string, user: string): TPhotosGet => {
+export const PHOTOS_GET = (page: number, total: number, user: number): TPhotosGet => {
     return {
         url: `${BASE_URL}/api/photo/?_page=${page}&_total=${total}&_user=${user}`,
         options: {

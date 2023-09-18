@@ -15,12 +15,13 @@ type SizedEvent = {
     opacity: number;
   };
 };
+
+const isSizedEvent = (e: any): e is SizedEvent => {
+  return e && e.style.opacity !== undefined;
+};
+
 const Image = ({ alt, ...props }: ImageProps) => {
   const [skeleton, setSkeleton] = useState(true);
-
-  const isSizedEvent = (e: any): e is SizedEvent => {
-    return e && e.style.opacity !== undefined;
-  };
 
   const handleLoad: ReactEventHandler<HTMLImageElement> = ({ target }) => {
     if (isSizedEvent(target)) {

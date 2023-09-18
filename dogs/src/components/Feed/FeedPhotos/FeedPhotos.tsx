@@ -8,6 +8,9 @@ import { FeedList } from './style';
 
 type FeedPhotosProps = {
   setModalPhoto: Dispatch<SetStateAction<null | Data>>;
+  setInfinite: Dispatch<SetStateAction<boolean>>;
+  user: number
+  page: number
 };
 
 type ResponseFetch = {
@@ -16,31 +19,31 @@ type ResponseFetch = {
   error: null;
   request: (url: RequestInfo | URL, options: RequestInit | undefined) => Promise<{
       response: Response | undefined;
-      json: any;
+      json: Data[];
   }>;
 }
 
-const FeedPhotos = ({ setModalPhoto }: FeedPhotosProps) => {
-  const response: ResponseFetch = useFetch()
+const FeedPhotos = ({ setModalPhoto, user, page, setInfinite }: FeedPhotosProps) => {
+  const fetchResponse: ResponseFetch = useFetch()
 
   useEffect(() => {
-    const fetchPhotos = async () => {
-      const page = '1';
-      const total = '6';
-      const user = '0';
-      const { url, options } = PHOTOS_GET(page, total, user);
+    const fetchPhotos = async () => {  
+      const total = 3;
 
-      const result = await response.request(url, options);
+        const { url, options } = PHOTOS_GET(page, total, user);
+        const {response, json} = await fetchResponse.request(url, options);
+        if(response && response.ok && json.length < total) setInfinite(false)
+        
     };
     fetchPhotos();
-  }, [response.request]);
+  }, [fetchResponse.request, setInfinite, page, user]);
 
-  if (response.error) return <Error error={response.error} />;
-  if (response.loading) return <Loading />;
-  if (response.data)
+  if (fetchResponse.error) return <Error error={fetchResponse.error} />;
+  if (fetchResponse.loading) return <Loading />;
+  if (fetchResponse.data)
     return (
       <FeedList className="animeLeft">
-        {response.data?.map((photo) => (
+        {fetchResponse.data?.map((photo) => (
           <FeedPhotoItem
             key={photo.id}
             photo={photo}

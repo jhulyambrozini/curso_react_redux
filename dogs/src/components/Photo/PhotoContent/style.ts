@@ -75,7 +75,7 @@ export const AttributesList = styled.ul`
     }
 `
 
-export const Author = styled.p`
+export const Author = styled.div`
     opacity: 0.5;
     margin-bottom: 1rem;
     display: flex;
