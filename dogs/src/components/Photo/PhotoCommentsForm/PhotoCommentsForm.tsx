@@ -14,9 +14,10 @@ import { CommentButton, CommentForm, CommentTextarea } from './style';
 type PhotoCommentsFormProps = {
   id: number;
   setComments: Dispatch<SetStateAction<Comments[]>>;
+  single: boolean
 };
 
-const PhotoCommentsForm = ({ id, setComments }: PhotoCommentsFormProps) => {
+const PhotoCommentsForm = ({ id, setComments, single }: PhotoCommentsFormProps) => {
   const [comment, setComment] = useState('');
   const { request, error } = useFetch();
 
@@ -44,7 +45,7 @@ const PhotoCommentsForm = ({ id, setComments }: PhotoCommentsFormProps) => {
     setComment(target.value);
   };
   return (
-    <CommentForm onSubmit={handleSubmit}>
+    <CommentForm onSubmit={handleSubmit} single={single}>
       <CommentTextarea
         id="comment"
         name="comment"

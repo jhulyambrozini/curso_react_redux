@@ -38,7 +38,7 @@ const FeedModal = ({photo, setModalPhoto}: FeedModalProps) => {
     <Modal onClick={handleOutsiteClick}>
       {error && <Error error={error} />}
       {loading && <Loading />}
-      {data && <PhotoContent data={data} />}  
+      {data && <PhotoContent single={false} data={data} />}  
     </Modal>
   )
 }

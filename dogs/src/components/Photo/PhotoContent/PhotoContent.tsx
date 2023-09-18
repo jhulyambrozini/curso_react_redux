@@ -5,21 +5,21 @@ import { useUser } from "../../../context/UserContext"
 import PhotoDelete from "../PhotoDelete/PhotoDelete"
 import Image from "../../../helpers/Image/Image"
 
-type PhotoContentProps = {
+export type PhotoContentProps = {
   data: DataFeedPhoto
+  single: boolean
 }
 
-const PhotoContent = ({data}: PhotoContentProps) => {
+const PhotoContent = ({data, single}: PhotoContentProps) => {
   const {photo, comments} = data
   const user = useUser()
   
   return (
-    <PhotoContainer>
-      
-      <ImageContainer>
+    <PhotoContainer single={single}>    
+      <ImageContainer single={single}>
         <Image src={photo.src} alt={photo.title}  />
       </ImageContainer>
-      <DatailsContainer>
+      <DatailsContainer single={single}>
         <div>
           <Author>
             {user.data && user.data.username === photo.author ? <PhotoDelete id={photo.id} /> : (
@@ -39,7 +39,7 @@ const PhotoContent = ({data}: PhotoContentProps) => {
           </AttributesList>
         </div>
       </DatailsContainer>
-      <PhotoComments id={photo.id} comments={comments} />
+      <PhotoComments single={single} id={photo.id} comments={comments} />
     </PhotoContainer>
   )
 }

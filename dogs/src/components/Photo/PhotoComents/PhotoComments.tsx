@@ -6,9 +6,10 @@ import { CommentsList } from "./style"
 type PhotoCommentsProps = {
     id: number
     comments: Comments[]
+    single: boolean
 }
 
-const PhotoComments = ({id, comments}: PhotoCommentsProps) => {
+const PhotoComments = ({id, comments, single}: PhotoCommentsProps) => {
   const {login} = useUser()
   const [commentsState, setCommentsState] = useState(() => comments)
   const commentSection = useRef<null | HTMLUListElement>(null)
@@ -21,7 +22,7 @@ const PhotoComments = ({id, comments}: PhotoCommentsProps) => {
 
   return (
     <>
-      <CommentsList ref={commentSection}>
+      <CommentsList ref={commentSection} single={single}>
         {commentsState.map(comment => (
           <li key={comment.comment_ID}>
             <b>{comment.comment_author}: </b>
@@ -29,7 +30,7 @@ const PhotoComments = ({id, comments}: PhotoCommentsProps) => {
           </li>
         ))}
       </CommentsList>
-        {login && <PhotoCommentsForm id={id} setComments={setCommentsState} />}
+        {login && <PhotoCommentsForm single={single} id={id} setComments={setCommentsState} />}
     </>
   )
 }

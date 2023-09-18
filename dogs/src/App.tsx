@@ -6,6 +6,7 @@ import Header from './components/Header/Header';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import User from './pages/User';
+import Photo from './pages/Photo';
 
 import { GlobalStyle } from './styles';
 
@@ -35,6 +36,10 @@ function App() {
                 <User />
               </ProtectedRouter>
               }
+            />
+            <Route
+              path="photo/:id"
+              element={<Photo />}
             />
           </Routes>
           <Footer />
