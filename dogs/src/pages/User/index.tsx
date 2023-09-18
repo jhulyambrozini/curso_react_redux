@@ -4,6 +4,7 @@ import UserStatistics from "../../components/User/UserStatistics"
 import Feed from "../../components/Feed/Feed"
 import UserHeader from "../../components/User/UserHeader/UserHeader"
 import { useUser } from "../../context/UserContext"
+import NotFound from "../NotFound/NotFound"
 
 const User = () => {
   const {data} = useUser()
@@ -16,6 +17,10 @@ const User = () => {
         <Route path='/' element={<Feed user={data?.id}/>}/>
         <Route path='post' element={<UserPhotoPost />}/>
         <Route path='statistics' element={<UserStatistics />}/>
+        <Route
+              path="*"
+              element={<NotFound />}
+            />
       </Routes>
     </section>
   )

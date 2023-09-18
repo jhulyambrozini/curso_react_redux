@@ -1,9 +1,51 @@
-import React from 'react'
+import React, { FormEventHandler } from 'react';
+import Input from '../Input/Input';
+import Button from '../Button/Button';
+import useForm from '../../hooks/useForm';
+import useFetch from '../../hooks/useFetch';
+import { PASSWORD_LOST } from '../../api';
+import Error from '../../helpers/Error';
 
 const LoginPassowrdLost = () => {
-  return (
-    <div>LoginPassowrdLost</div>
-  )
-}
+  const login = useForm();
+  const { data, loading, error, request } = useFetch();
 
-export default LoginPassowrdLost
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
+    event.preventDefault();
+
+    if (login.validate()) {
+      const { url, options } = PASSWORD_LOST({
+        login: login.value,
+        url: 'http://localhost:5173/login/reset',
+      });
+      await request(url, options);
+    }
+  };
+
+  return (
+    <section>
+      <h1 className="title">Perdeu a senha?</h1>
+      {data ? (
+        <p style={{color: '#4c1'}}>{data}</p>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <Input
+            id="email"
+            label="Email / Usuário"
+            type="text"
+            {...login}
+          />
+          {loading ? (
+            <Button disabled>Enviando...</Button>
+          ) : (
+            <Button>Enviar Email</Button>
+          )}
+        </form>
+      )}
+
+      <Error error={error} />
+    </section>
+  );
+};
+
+export default LoginPassowrdLost;

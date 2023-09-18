@@ -14,6 +14,17 @@ type TPhotosGet = {
     url: string
 }
 
+type TPasswordLost = {
+    url: string
+    login: string
+}
+
+type TPasswordReset = {
+    login: string
+    key: string
+    password: string
+}
+
 export const TOKEN_POST = (bodyData: DataBody) => {
     const bodyJson = JSON.stringify(bodyData)
     const body = bodyJson.replace(/\\/g, '')
@@ -127,6 +138,33 @@ export const PHOTO_DELETE = (id: number, token: string) => {
             headers: {
                 Authorization: 'Bearer ' + token
             }
+        }
+    }
+}
+
+export const PASSWORD_LOST = (body: TPasswordLost) => {
+   
+    return {
+        url: `${BASE_URL}/api/password/lost`,
+        options: {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body)
+        }
+    }
+}
+
+export const PASSWORD_RESET = (body: TPasswordReset) => {
+    return {
+        url: `${BASE_URL}/api/password/reset`,
+        options: {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body)
         }
     }
 }

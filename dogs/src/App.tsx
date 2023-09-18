@@ -13,6 +13,7 @@ import { GlobalStyle } from './styles';
 import { UserStorage } from './context/UserContext';
 import ProtectedRouter from './helpers/ProtectedRouter';
 import Profile from './pages/Profile';
+import NotFound from './pages/NotFound/NotFound';
 
 function App() {
   return (
@@ -45,6 +46,10 @@ function App() {
             <Route
               path="profile/:user"
               element={<Profile />}
+            />
+            <Route
+              path="*"
+              element={<NotFound />}
             />
           </Routes>
           <Footer />
