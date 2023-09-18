@@ -6,6 +6,14 @@ type DataBody = {
     email?: string
 }
 
+type TPhotosGet = {
+    options: {
+        method: string
+        cache: RequestCache
+    }
+    url: string
+}
+
 export const TOKEN_POST = (bodyData: DataBody) => {
     const bodyJson = JSON.stringify(bodyData)
     const body = bodyJson.replace(/\\/g, '')
@@ -62,7 +70,6 @@ export const USER_POST = (bodyData: DataBody) => {
     }
 }
 
-
 export const PHOTO_POST = (formData: FormData, token: string) => {
     
     return {
@@ -74,5 +81,40 @@ export const PHOTO_POST = (formData: FormData, token: string) => {
             },
         body: formData
         }
+    }
+}
+
+export const PHOTOS_GET = (page: string, total: string, user: string): TPhotosGet => {
+    return {
+        url: `${BASE_URL}/api/photo/?_page=${page}&_total=${total}&_user=${user}`,
+        options: {
+            method: 'GET',
+            cache: 'no-store'
+        }
+    }
+}
+
+export const PHOTO_GET = (id: number): TPhotosGet => {
+    return {
+        url: `${BASE_URL}/api/photo/${id}`,
+        options: {
+            method: 'GET',
+            cache: 'no-store'
+        }
+    }
+}
+
+export const COMMENT_POST = (id: number, body: {comment: string } , token: string) => {
+    return {
+        url: `${BASE_URL}/api/comment/${id}`,
+        options: {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token
+            },
+            body: JSON.stringify(body)
+        },
+       
     }
 }

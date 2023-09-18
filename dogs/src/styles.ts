@@ -78,6 +78,10 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0 auto;
     }
 
+    .mainContainer {
+        margin-top: 4rem;
+    }
+
     .mobileButtonActive {
         outline: none;
         background-color: white;
