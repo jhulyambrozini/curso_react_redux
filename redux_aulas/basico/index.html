@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Redux Básico</title>
+</head>
+<body>
+    <h1 id="aulas"></h1>
+    <h1 id="aluno"></h1>
+
+
+    <script src="./redux.min.js"></script>
+    <script src="./immer.min.js"></script>
+    <script type="module">
+        //imports 
+        import store from './store/configureStore.js'
+        import {incrementarTempo} from './store/aluno.js'
+
+        // função render
+        function render() {
+            const state = store.getState()
+            const aulas = document.getElementById('aulas')
+            const aluno = document.getElementById('aluno')
+
+            aluno.innerText = `${state.aluno.nome} : ${state.aluno.email} : ${state.aluno.diasRestantes}`
+            // aulas.innerText = state.aulas.filter(aula => aula.completa ===  true)
+        }
+        render()
+
+        store.subscribe(render)
+
+        // dispatchs
+        store.dispatch(incrementarTempo())
+        store.dispatch(incrementarTempo())
+        store.dispatch(incrementarTempo())
+
+
+    </script>
+</body>
+</html>
