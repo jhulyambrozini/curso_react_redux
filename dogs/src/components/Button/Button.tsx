@@ -1,12 +1,13 @@
-import { ComponentProps} from "react"
-import { ButtonContainer } from "./style"
-import { Link } from "react-router-dom"
+import { Link } from 'react-router-dom';
+import { ComponentProps } from 'react';
+
+import { ButtonContainer } from './style';
 
 type ButtonProps = ComponentProps<'button'> & {
-  to?: string
-}
+  to?: string;
+};
 
-const Button = ({children, to, ...props}: ButtonProps) => {
+const Button = ({ children, to, ...props }: ButtonProps) => {
   if (to) {
     return (
       <Link to={to}>
@@ -15,6 +16,6 @@ const Button = ({children, to, ...props}: ButtonProps) => {
     );
   }
   return <ButtonContainer {...props}>{children}</ButtonContainer>;
-}
+};
 
-export default Button
+export default Button;

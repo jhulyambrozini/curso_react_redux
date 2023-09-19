@@ -64,13 +64,12 @@ export const MobileButton = styled.button`
     box-shadow: 0 6px currentColor, 0 -6px currentColor;
   }
 
-  &:focus, &:hover {
+  &:focus,
+  &:hover {
     outline: none;
     background-color: white;
     box-shadow: 0 0 0 3px ${colors.hover};
     border-color: ${colors.primmary};
     color: ${colors.primmary};
   }
-
-  
 `;

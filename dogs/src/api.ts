@@ -48,7 +48,7 @@ export const GET_USER = (token: string) => {
             method: 'GET',
             headers: {
                 Authorization: 'Bearer ' + token
-            },        
+            },
         }
     }
 }
@@ -61,7 +61,7 @@ export const TOKEN_VALIDATE_POST = (token: string) => {
             headers: {
                 Authorization: 'Bearer ' + token
             },
-          
+
         }
     }
 }
@@ -76,13 +76,13 @@ export const USER_POST = (bodyData: DataBody) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-        body
+            body
         }
     }
 }
 
 export const PHOTO_POST = (formData: FormData, token: string) => {
-    
+
     return {
         url: BASE_URL + '/api/photo',
         options: {
@@ -90,7 +90,7 @@ export const PHOTO_POST = (formData: FormData, token: string) => {
             headers: {
                 Authorization: 'Bearer ' + token
             },
-        body: formData
+            body: formData
         }
     }
 }
@@ -115,7 +115,7 @@ export const PHOTO_GET = (id: number): TPhotosGet => {
     }
 }
 
-export const COMMENT_POST = (id: number, body: {comment: string } , token: string) => {
+export const COMMENT_POST = (id: number, body: { comment: string }, token: string) => {
     return {
         url: `${BASE_URL}/api/comment/${id}`,
         options: {
@@ -126,7 +126,7 @@ export const COMMENT_POST = (id: number, body: {comment: string } , token: strin
             },
             body: JSON.stringify(body)
         },
-       
+
     }
 }
 
@@ -143,7 +143,7 @@ export const PHOTO_DELETE = (id: number, token: string) => {
 }
 
 export const PASSWORD_LOST = (body: TPasswordLost) => {
-   
+
     return {
         url: `${BASE_URL}/api/password/lost`,
         options: {
@@ -177,7 +177,7 @@ export const STATISTICS_GET = (token: string) => {
             headers: {
                 Authorization: 'Bearer ' + token
             },
-            
+
         }
     }
 }

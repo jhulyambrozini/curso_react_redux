@@ -1,12 +1,12 @@
 import { Dispatch, MouseEventHandler, SetStateAction } from 'react';
 import { PhotoItem, Views } from './style';
-import Image from '../../../helpers/Image/Image'
+import Image from '../../../helpers/Image/Image';
 
-type Props = {
+type FeedPhotoItemProps = {
   photo: Data;
   setModalPhoto: Dispatch<SetStateAction<null | Data>>;
 };
-const FeedPhotoItem = ({ photo, setModalPhoto }: Props) => {
+const FeedPhotoItem = ({ photo, setModalPhoto }: FeedPhotoItemProps) => {
   const handleClick: MouseEventHandler<HTMLLIElement> = () => {
     setModalPhoto(photo);
   };
@@ -17,7 +17,6 @@ const FeedPhotoItem = ({ photo, setModalPhoto }: Props) => {
         src={photo.src}
         alt={photo.title}
       />
-
       <Views>{photo.acessos}</Views>
     </PhotoItem>
   );

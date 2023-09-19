@@ -3,7 +3,7 @@ import FeedModal from './FeedModal/FeedModal';
 import FeedPhotos from './FeedPhotos/FeedPhotos';
 
 type FeedProps = {
-  user: number | string
+  user: number | string;
 };
 
 const Feed = ({ user }: FeedProps) => {
@@ -14,15 +14,14 @@ const Feed = ({ user }: FeedProps) => {
   useEffect(() => {
     let wait = false;
     const inifineScroll = () => {
-      
       if (infinite) {
         const scroll = window.scrollY;
         const height = document.body.offsetHeight - window.innerHeight;
-       
-        if (scroll > height * 0.75 && !wait) {  
-          setPages((pages) => [...pages, pages.length + 1]); 
+
+        if (scroll > height * 0.75 && !wait) {
+          setPages((pages) => [...pages, pages.length + 1]);
           wait = true;
-         
+
           setTimeout(() => {
             wait = false;
           }, 500);

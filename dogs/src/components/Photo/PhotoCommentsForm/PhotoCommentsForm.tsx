@@ -5,19 +5,23 @@ import {
   SetStateAction,
   useState,
 } from 'react';
+import { CommentButton, CommentForm, CommentTextarea } from './style';
 import { ReactComponent as SendIcon } from '../../../assets/enviar.svg';
 import useFetch from '../../../hooks/useFetch';
 import { COMMENT_POST } from '../../../api';
 import Error from '../../../helpers/Error';
-import { CommentButton, CommentForm, CommentTextarea } from './style';
 
 type PhotoCommentsFormProps = {
   id: number;
   setComments: Dispatch<SetStateAction<Comments[]>>;
-  single: boolean
+  single: boolean;
 };
 
-const PhotoCommentsForm = ({ id, setComments, single }: PhotoCommentsFormProps) => {
+const PhotoCommentsForm = ({
+  id,
+  setComments,
+  single,
+}: PhotoCommentsFormProps) => {
   const [comment, setComment] = useState('');
   const { request, error } = useFetch();
 
@@ -33,7 +37,7 @@ const PhotoCommentsForm = ({ id, setComments, single }: PhotoCommentsFormProps) 
       const json: Comments = res.json;
 
       if (res.response && res.response.ok) {
-        setComment('')
+        setComment('');
         setComments((prevComments: Comments[]) => [...prevComments, json]);
       }
     }
@@ -45,7 +49,10 @@ const PhotoCommentsForm = ({ id, setComments, single }: PhotoCommentsFormProps) 
     setComment(target.value);
   };
   return (
-    <CommentForm onSubmit={handleSubmit} single={single}>
+    <CommentForm
+      onSubmit={handleSubmit}
+      single={single}
+    >
       <CommentTextarea
         id="comment"
         name="comment"
@@ -56,7 +63,7 @@ const PhotoCommentsForm = ({ id, setComments, single }: PhotoCommentsFormProps) 
       <CommentButton>
         <SendIcon />
       </CommentButton>
-      <Error error={error}/>
+      <Error error={error} />
     </CommentForm>
   );
 };

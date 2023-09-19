@@ -1,31 +1,45 @@
-import { Link } from "react-router-dom"
-import { AttributesList, Author, DatailsContainer, ImageContainer, PhotoContainer, Viwes } from "./style"
-import PhotoComments from "../PhotoComents/PhotoComments"
-import { useUser } from "../../../context/UserContext"
-import PhotoDelete from "../PhotoDelete/PhotoDelete"
-import Image from "../../../helpers/Image/Image"
+import { Link } from 'react-router-dom';
 
-export type PhotoContentProps = {
-  data: DataFeedPhoto
-  single: boolean
-}
+import PhotoComments from '../PhotoComents/PhotoComments';
+import PhotoDelete from '../PhotoDelete/PhotoDelete';
 
-const PhotoContent = ({data, single}: PhotoContentProps) => {
-  const {photo, comments} = data
-  const user = useUser()
-  
+import {
+  AttributesList,
+  Author,
+  DatailsContainer,
+  ImageContainer,
+  PhotoContainer,
+  Viwes,
+} from './style';
+import Image from '../../../helpers/Image/Image';
+import { useUser } from '../../../context/UserContext';
+
+type PhotoContentProps = {
+  data: DataFeedPhoto;
+  single: boolean;
+};
+
+const PhotoContent = ({ data, single }: PhotoContentProps) => {
+  const { photo, comments } = data;
+  const user = useUser();
+
   return (
-    <PhotoContainer single={single}>    
+    <PhotoContainer single={single}>
       <ImageContainer single={single}>
-        <Image src={photo.src} alt={photo.title}  />
+        <Image
+          src={photo.src}
+          alt={photo.title}
+        />
       </ImageContainer>
       <DatailsContainer single={single}>
         <div>
           <Author>
-            {user.data && user.data.username === photo.author ? <PhotoDelete id={photo.id} /> : (
+            {user.data && user.data.username === photo.author ? (
+              <PhotoDelete id={photo.id} />
+            ) : (
               <Link to={`/profile/${photo.author}`}>@{photo.author}</Link>
             )}
-            
+
             <Viwes>{photo.acessos}</Viwes>
           </Author>
 
@@ -35,13 +49,19 @@ const PhotoContent = ({data, single}: PhotoContentProps) => {
 
           <AttributesList>
             <li>{photo.peso} kg</li>
-            <li>{photo.idade} {Number(photo.idade) > 1 ? 'anos' : 'ano'}</li>
+            <li>
+              {photo.idade} {Number(photo.idade) > 1 ? 'anos' : 'ano'}
+            </li>
           </AttributesList>
         </div>
       </DatailsContainer>
-      <PhotoComments single={single} id={photo.id} comments={comments} />
+      <PhotoComments
+        single={single}
+        id={photo.id}
+        comments={comments}
+      />
     </PhotoContainer>
-  )
-}
+  );
+};
 
-export default PhotoContent
+export default PhotoContent;

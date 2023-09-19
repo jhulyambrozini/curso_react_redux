@@ -1,34 +1,34 @@
 import { useEffect, useState } from 'react';
+
 import { colors } from '../../styles';
 import { LoadingStyle, LoadingWrapper } from './style';
 
 const Loading = () => {
-  const [step, setStep] = useState(0)
+  const [step, setStep] = useState(0);
 
   const displayStep = (i: number) => {
     return {
-      display: step === i ? 'block' : 'none'
-    }
-  }
+      display: step === i ? 'block' : 'none',
+    };
+  };
 
   useEffect(() => {
     const updateStep = () => {
-
       setStep((step) => {
-        if(step < 3) return step + 1
-        else return 0
-      })
-    } 
-    const interval = setInterval(updateStep, 300)
+        if (step < 3) return step + 1;
+        else return 0;
+      });
+    };
+    const interval = setInterval(updateStep, 300);
     return () => {
-      clearInterval(interval)
-    }
-  }, [])
-  
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
     <LoadingWrapper>
       <LoadingStyle>
-      <svg
+        <svg
           width="46"
           height="31"
           viewBox="0 0 46 31"

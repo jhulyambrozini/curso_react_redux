@@ -1,18 +1,18 @@
-import { useState, useEffect, SetStateAction } from "react"
-import { GraphsContainer, GraphsItem, Total } from "./style"
-import {VictoryBar, VictoryChart, VictoryPie} from 'victory'
+import { useState, useEffect } from 'react';
+import { VictoryBar, VictoryChart, VictoryPie } from 'victory';
+import { GraphsContainer, GraphsItem, Total } from './style';
 
 type UserStatisticsGraphsProps = {
- data: GraphData[]
+  data: GraphData[];
+};
+type TGraphData = {
+  x: string;
+  y: number;
 }
 
-interface TGraphData {
-    x: string;
-    y: number;
-}
-const UserStatisticsGraphs = ({data}: UserStatisticsGraphsProps) => {
-  const [total, setTotal] = useState(0)
-  const [graph, setGraph] = useState<TGraphData[] | null>(null)
+const UserStatisticsGraphs = ({ data }: UserStatisticsGraphsProps) => {
+  const [total, setTotal] = useState(0);
+  const [graph, setGraph] = useState<TGraphData[] | null>(null);
 
   useEffect(() => {
     const graphData = data.map((item) => {
@@ -21,21 +21,22 @@ const UserStatisticsGraphs = ({data}: UserStatisticsGraphsProps) => {
         y: Number(item.acessos),
       };
     });
-    const totalAcess = data.map(({acessos}) => Number(acessos)).reduce((a,b) => a + b, 0)
+    const totalAcess = data
+      .map(({ acessos }) => Number(acessos))
+      .reduce((a, b) => a + b, 0);
 
-    setTotal(totalAcess)
-    setGraph(graphData)
-  }, [data])
-  
+    setTotal(totalAcess);
+    setGraph(graphData);
+  }, [data]);
 
-  if(!graph) return null
+  if (!graph) return null;
   return (
     <GraphsContainer className="animeLeft">
       <Total>
         <p>Acessos: {total}</p>
       </Total>
       <GraphsItem>
-      <VictoryPie
+        <VictoryPie
           data={graph}
           innerRadius={50}
           padding={{ top: 20, bottom: 20, left: 80, right: 80 }}
@@ -54,11 +55,14 @@ const UserStatisticsGraphs = ({data}: UserStatisticsGraphsProps) => {
       </GraphsItem>
       <GraphsItem>
         <VictoryChart>
-          <VictoryBar alignment="start" data={graph}></VictoryBar>
+          <VictoryBar
+            alignment="start"
+            data={graph}
+          ></VictoryBar>
         </VictoryChart>
       </GraphsItem>
     </GraphsContainer>
-  )
-}
+  );
+};
 
-export default UserStatisticsGraphs
+export default UserStatisticsGraphs;

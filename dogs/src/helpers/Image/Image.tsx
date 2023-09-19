@@ -1,7 +1,6 @@
 import {
   ComponentProps,
   ReactEventHandler,
-  SyntheticEvent,
   useState,
 } from 'react';
 import { ImgWrapper, Skeleton } from './style';

@@ -1,6 +1,5 @@
-import { MouseEventHandler } from 'react';
-import useFetch from '../../../hooks/useFetch';
 import { ButtonDeletePhoto } from './style';
+import useFetch from '../../../hooks/useFetch';
 import { PHOTO_DELETE } from '../../../api';
 
 type PhotoDeleteProps = {

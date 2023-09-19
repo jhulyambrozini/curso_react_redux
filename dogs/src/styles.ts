@@ -1,16 +1,16 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 export const colors = {
-    dark: '#333',
-    primmary: '#fb1',
-    secondary: '#764701',
-    hover: '#fea'
-}
+  dark: '#333',
+  primmary: '#fb1',
+  secondary: '#764701',
+  hover: '#fea',
+};
 
 export const typography = {
-    sanSerif: 'Helvetica, Arial, sans-serif',
-    serif: 'Spectral, Georgia'
-}
+  sanSerif: 'Helvetica, Arial, sans-serif',
+  serif: 'Spectral, Georgia',
+};
 
 export const GlobalStyle = createGlobalStyle`
     * {
@@ -166,4 +166,4 @@ export const GlobalStyle = createGlobalStyle`
     .VictoryContainer {
         height: initial !important;
     }
-`
+`;
