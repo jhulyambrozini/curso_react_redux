@@ -162,4 +162,8 @@ export const GlobalStyle = createGlobalStyle`
     .AppBody {
         flex: 1;
     }
+
+    .VictoryContainer {
+        height: initial !important;
+    }
 `

@@ -168,3 +168,16 @@ export const PASSWORD_RESET = (body: TPasswordReset) => {
         }
     }
 }
+
+export const STATISTICS_GET = (token: string) => {
+    return {
+        url: `${BASE_URL}/api/stats`,
+        options: {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + token
+            },
+            
+        }
+    }
+}

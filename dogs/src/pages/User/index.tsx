@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom"
 import UserPhotoPost from "../../components/User/UserPhotoPost/UserPhotoPost"
-import UserStatistics from "../../components/User/UserStatistics"
+import UserStatistics from "../../components/User/UserStatistics/UserStatistics"
 import Feed from "../../components/Feed/Feed"
 import UserHeader from "../../components/User/UserHeader/UserHeader"
 import { useUser } from "../../context/UserContext"

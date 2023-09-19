@@ -36,3 +36,9 @@ declare type DataFeedPhoto = {
 declare type commentData = {
     comment_content: string
 }
+
+declare type GraphData = {
+    id: number
+    title: string
+    acessos: string
+  }
