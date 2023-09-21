@@ -1,5 +1,6 @@
-import {AnyAction, Dispatch, PayloadAction} from '@reduxjs/toolkit'
+import { PayloadAction} from '@reduxjs/toolkit'
 import { PHOTO_GET } from '../../api';
+import { AppDispatch } from '..';
 
 const FETCH_PHOTO_STARTED = 'photo/fetchStarted';
 const FETCH_PHOTO_SUCCESS = 'photo/fetchSuccess';
@@ -8,9 +9,10 @@ const FETCH_PHOTO_FAILED = 'photo/fetchFailed';
 // Actions
 const fetchPhotoStarted = () => ({
   type: FETCH_PHOTO_STARTED,
+  payload: null
 });
 
-const fetchPhotoSuccess = (data: any) => ({
+const fetchPhotoSuccess = (data: DataFeedPhoto) => ({
   type: FETCH_PHOTO_SUCCESS,
   payload: data,
 });
@@ -61,15 +63,8 @@ export default function photo(state = initialState, action: PayloadAction<any>) 
   }
 }
 
-// type PhotoAction =
-//   | { type: 'FETCH_PHOTO_STARTED' }
-//   | { type: 'FETCH_PHOTO_SUCCESS'; data: DataFeedPhoto }
-//   | { type: 'FETCH_PHOTO_FAILED'; error: string };
-
- type Fetch = (dispatch: Dispatch<AnyAction>) => Promise<void>
-
 // Async Actions
-export const fetchPhoto = (id: number) => async (dispatch: any) => {
+export const fetchPhoto = (id: number) => async (dispatch: AppDispatch) => {
   try {
     dispatch(fetchPhotoStarted());
     const { url, options } = PHOTO_GET(id);

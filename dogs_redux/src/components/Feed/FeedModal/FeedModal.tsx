@@ -3,36 +3,27 @@ import { Dispatch, MouseEventHandler, SetStateAction, useEffect } from 'react';
 import PhotoContent from '../../Photo/PhotoContent/PhotoContent';
 import { Modal } from './style';
 
-import useFetch from '../../../hooks/useFetch';
 import Error from '../../../helpers/Error';
 import Loading from '../../../helpers/Loading/Loading';
-import {PHOTO_GET } from '../../../api';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootReducer } from '../../../store';
+import { fetchPhoto } from '../../../store/reducers/photo';
 
 type FeedModalProps = {
   photo: Data;
   setModalPhoto: Dispatch<SetStateAction<null | Data>>;
 };
 
-type ResponseFetch = {
-  data: DataFeedPhoto | null;
-  loading: boolean;
-  error: null;
-  request: (
-    url: RequestInfo | URL,
-    options: RequestInit | undefined
-  ) => Promise<{
-    response: Response | undefined;
-    json: any;
-  }>;
-};
 
 const FeedModal = ({ photo, setModalPhoto }: FeedModalProps) => {
-  const { data, error, loading, request }: ResponseFetch = useFetch();
+
+  const {loading, error, data} = useSelector((state: RootReducer) => state.photo)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    const { url, options } = PHOTO_GET(photo.id);
-    request(url, options);
-  }, [photo, request]);
+     dispatch(fetchPhoto(photo.id))
+  }, [dispatch,photo]);
+
 
   const handleOutsiteClick: MouseEventHandler<HTMLDivElement> = (event) => {
     if (event.target === event.currentTarget) setModalPhoto(null);
@@ -45,7 +36,6 @@ const FeedModal = ({ photo, setModalPhoto }: FeedModalProps) => {
       {data && (
         <PhotoContent
           single={false}
-          data={data}
         />
       )}
     </Modal>

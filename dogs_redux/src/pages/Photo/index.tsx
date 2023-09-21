@@ -7,11 +7,9 @@ import Loading from '../../helpers/Loading/Loading';
 import Error from '../../helpers/Error';
 import Head from '../../helpers/Head';
 
-import { PHOTO_GET } from '../../api';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootReducer } from '../../store';
 import { fetchPhoto } from '../../store/reducers/photo';
-import { AnyAction, Dispatch } from 'redux';
 
 
 const Photo = () => {
@@ -19,12 +17,10 @@ const Photo = () => {
 
   const {loading, error, data} = useSelector((state: RootReducer) => state.photo)
   const dispatch = useDispatch()
-  const idNum = Number(id)
 
   useEffect(() => {
     if (id) {
-      const fetchAction: (dispatch: Dispatch<AnyAction>) => Promise<void> = fetchPhoto(idNum);
-     dispatch(fetchPhoto(idNum))
+     dispatch(fetchPhoto(Number(id)))
     }
   }, [dispatch, id]);
 
@@ -41,7 +37,6 @@ const Photo = () => {
       />
       <PhotoContent
         single={true}
-        data={dataValid}
       />
     </section>
   );

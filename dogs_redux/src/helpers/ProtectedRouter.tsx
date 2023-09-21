@@ -1,10 +1,11 @@
 import { Navigate } from 'react-router-dom';
 import { PropsWithChildren } from 'react';
-import { useUser } from '../context/UserContext';
+import { useSelector } from 'react-redux';
+import { RootReducer } from '../store';
 
 const ProtectedRouter = ({ children }: PropsWithChildren) => {
-  const { login } = useUser();
-  return login ? children : <Navigate to="/login" />;
+  const {data} = useSelector((state: RootReducer)=> state.user)
+  return data ? children : <Navigate to="/login" />;
 };
 
 export default ProtectedRouter;

@@ -2,15 +2,17 @@ import { useEffect, useRef, useState } from 'react';
 import PhotoCommentsForm from '../PhotoCommentsForm/PhotoCommentsForm';
 import { CommentsList } from './style';
 import { useUser } from '../../../context/UserContext';
+import { useSelector } from 'react-redux';
+import { RootReducer } from '../../../store';
 
 type PhotoCommentsProps = {
-  id: number;
-  comments: Comments[];
   single: boolean;
 };
 
-const PhotoComments = ({ id, comments, single }: PhotoCommentsProps) => {
+const PhotoComments = ({ single }: PhotoCommentsProps) => {
   const { login } = useUser();
+  
+  const {photo, comments}: DataState = useSelector((state: RootReducer) => state.photo.data)
   const [commentsState, setCommentsState] = useState(() => comments);
   const commentSection = useRef<null | HTMLUListElement>(null);
 
@@ -36,7 +38,7 @@ const PhotoComments = ({ id, comments, single }: PhotoCommentsProps) => {
       {login && (
         <PhotoCommentsForm
           single={single}
-          id={id}
+          id={photo.id}
           setComments={setCommentsState}
         />
       )}
