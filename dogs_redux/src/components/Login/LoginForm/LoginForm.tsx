@@ -17,7 +17,7 @@ export const LoginForm = () => {
   const passwordValue = useForm();
   const { userLogin, error, loading } = useUser();
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
 
     if (usernameValue.validate() && passwordValue.validate()) {

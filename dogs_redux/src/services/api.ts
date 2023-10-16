@@ -1,4 +1,18 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+type TokenPostResponse = {
+    token: string
+    user_display_name: string
+    user_email: string
+    user_nicename: string
+}
+
+type UserResponse = {
+    email: string;
+    id: number;
+    nome: string;
+    username: string;
+  };
+  
 
 type DataBody = {
     username: string
@@ -55,7 +69,7 @@ const api = createApi({
                 }
            })
         }),
-        tokenPost: builder.mutation<any, string>({
+        tokenPost: builder.mutation<TokenPostResponse, DataBody>({
             query: (body) => ({
                 url: '/jwt-auth/v1/token',
                 method: 'POST',
@@ -65,15 +79,15 @@ const api = createApi({
                 body: JSON.stringify(body)
               })
         }),
-        tokenValidatePost: builder.mutation<any, string>({
-            query: (token) => ({
-                url: '/jwt-auth/v1/token/validate',
-                method: 'POST',
-                headers: {
-                    Authorization: 'Bearer ' + token
-                }
-            })
-        }),
+        // tokenValidatePost: builder.mutation<any, string>({
+        //     query: (token) => ({
+        //         url: '/jwt-auth/v1/token/validate',
+        //         method: 'POST',
+        //         headers: {
+        //             Authorization: 'Bearer ' + token
+        //         },
+        //     })
+        // }),
         userPost: builder.mutation<any, DataBody>({
             query: (body) => ({
                 url: '/api/user',
@@ -174,6 +188,6 @@ export const {
     usePhotoPostMutation,
     usePhotosGetQuery,
     useStatisticsGetQuery,
-    useTokenValidatePostMutation,
+    // useTokenValidatePostMutation,
     useTokenPostMutation
 } = api
