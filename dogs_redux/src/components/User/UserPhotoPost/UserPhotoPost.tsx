@@ -11,12 +11,11 @@ import Button from '../../Button/Button';
 import { PhotoPostContainer, PreviewPhoto } from './style';
 
 import useForm from '../../../hooks/useForm';
-import useFetch from '../../../hooks/useFetch';
 
 import Error from '../../../helpers/Error';
 import Head from '../../../helpers/Head';
 
-import { PHOTO_POST } from '../../../api';
+import { usePhotoPostMutation } from '../../../services/api';
 
 type ImageState = {
   raw: File | null;
@@ -28,8 +27,8 @@ const UserPhotoPost = () => {
   const weight = useForm('number');
   const age = useForm('number');
   const [img, setImg] = useState<ImageState>({ raw: null, preview: null });
-  const { data, error, loading, request } = useFetch();
   const navigate = useNavigate();
+  const [photoPost, {data, isLoading, isError}] = usePhotoPostMutation()
 
   useEffect(() => {
     if (data) navigate('/account');
@@ -48,8 +47,10 @@ const UserPhotoPost = () => {
 
     const token = window.localStorage.getItem('token');
     if (token) {
-      const { url, options } = PHOTO_POST(formData, token);
-      request(url, options);
+      photoPost({
+        formData,
+        token
+      })
     }
   };
 
@@ -94,12 +95,12 @@ const UserPhotoPost = () => {
           id="img"
           onChange={handleChange}
         />
-        {loading ? (
+        {isLoading ? (
           <Button disabled>Postando...</Button>
         ) : (
           <Button>Postar</Button>
         )}
-        <Error error={error} />
+        {isError && <Error error="Falha ao enviar." />}
       </form>
       <div>
         {img.preview && (

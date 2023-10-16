@@ -23,7 +23,7 @@ const PhotoCommentsForm = ({
   single,
 }: PhotoCommentsFormProps) => {
   const [comment, setComment] = useState('');
-  const [postComment, {data, isError}] = useCommentPostMutation()
+  const [postComment, {isError}] = useCommentPostMutation()
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
@@ -41,8 +41,6 @@ const PhotoCommentsForm = ({
         })
        
         if('data' in result && result.data){
-          console.log(result.data)
-          console.log(data)
           setComment('')
           setComments((prevComments: Comments[]) => [...prevComments, result.data])
         } else if('error' in result){

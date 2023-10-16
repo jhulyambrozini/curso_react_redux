@@ -121,9 +121,9 @@ const api = createApi({
                 body: data.body
             })
         }),
-        photoDelete: builder.mutation<any, PhotoDeleteType>({
+        photoDelete: builder.mutation<string, PhotoDeleteType>({
             query: (data) => ({
-                url: `/api/photo/${data.id}`,
+                url: `api/photo/${data.id}`,
                 method: 'DELETE',
                 headers: {
                     Authorization: 'Bearer ' + data.token

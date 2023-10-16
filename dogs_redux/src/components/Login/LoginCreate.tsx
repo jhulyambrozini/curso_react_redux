@@ -3,33 +3,32 @@ import { FormEventHandler } from 'react';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 
-import useFetch from '../../hooks/useFetch';
 import useForm from '../../hooks/useForm';
 
 import Error from '../../helpers/Error';
 import Head from '../../helpers/Head';
 
 import { useUser } from '../../context/UserContext';
-import { USER_POST } from '../../api';
+import { useUserPostMutation } from '../../services/api';
 
 export const LoginCreate = () => {
   const username = useForm();
   const email = useForm('email');
   const password = useForm();
+  const [userPost, {isLoading, error}] = useUserPostMutation()
 
   const { userLogin } = useUser();
-  const { loading, error, request } = useFetch();
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    const { url, options } = USER_POST({
+    userPost({
       username: username.value,
       password: password.value,
-      email: email.value,
-    });
-
-    const { response } = await request(url, options);
-    if (response && response.ok) userLogin(username.value, password.value);
+      email: email.value
+    })
+    .unwrap()
+    .then(() => userLogin(username.value, password.value))
+    .catch((error) =>  console.error(error))
   };
 
   return (
@@ -58,12 +57,12 @@ export const LoginCreate = () => {
           type="password"
           {...password}
         />
-        {loading ? (
+        {isLoading ? (
           <Button disabled>Cadastrando..</Button>
         ) : (
           <Button>Cadastrar</Button>
         )}
-        <Error error={error} />
+        {error && <Error error="Erro desconhecido"/>}
       </form>
     </section>
   );

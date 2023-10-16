@@ -14,7 +14,7 @@ type FeedModalProps = {
 
 const FeedModal = ({ photo, setModalPhoto }: FeedModalProps) => {
  
-  const {data, isLoading, isError, error} = usePhotoGetQuery(photo.id)
+  const {data, isLoading, isError} = usePhotoGetQuery(photo.id)
 
   const handleOutsiteClick: MouseEventHandler<HTMLDivElement> = (event) => {
     if (event.target === event.currentTarget) setModalPhoto(null);
@@ -22,7 +22,7 @@ const FeedModal = ({ photo, setModalPhoto }: FeedModalProps) => {
 
   return (
     <Modal onClick={handleOutsiteClick}>
-      {isError && <Error error={String(error)} />}
+      {isError && <Error error='foto não encontrada.' />}
       {isLoading && <Loading />}
       {data && (
         <PhotoContent

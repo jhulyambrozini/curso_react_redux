@@ -3,26 +3,24 @@ import Input from '../Input/Input';
 import Button from '../Button/Button';
 
 import useForm from '../../hooks/useForm';
-import useFetch from '../../hooks/useFetch';
 
 import Error from '../../helpers/Error';
 import Head from '../../helpers/Head';
 
-import { PASSWORD_LOST } from '../../api';
+import { usePasswordLostMutation } from '../../services/api';
 
 const LoginPassowrdLost = () => {
   const login = useForm();
-  const { data, loading, error, request } = useFetch();
+  const [passwordLost, {data, isLoading, isError}] = usePasswordLostMutation()
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
 
     if (login.validate()) {
-      const { url, options } = PASSWORD_LOST({
+      passwordLost({
         login: login.value,
         url: 'http://localhost:5173/login/reset',
-      });
-      await request(url, options);
+      })
     }
   };
 
@@ -43,7 +41,7 @@ const LoginPassowrdLost = () => {
             type="text"
             {...login}
           />
-          {loading ? (
+          {isLoading ? (
             <Button disabled>Enviando...</Button>
           ) : (
             <Button>Enviar Email</Button>
@@ -51,7 +49,7 @@ const LoginPassowrdLost = () => {
         </form>
       )}
 
-      <Error error={error} />
+      {isError && <Error error="Usuário não encontrado." />}
     </section>
   );
 };

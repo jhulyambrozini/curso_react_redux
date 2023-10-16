@@ -22,7 +22,7 @@ const FeedPhotos = ({
 }: FeedPhotosProps) => {
   const [shouldSkip, setShouldSkip] = useState(false)
   let total = 3
-  const { data, isError, isLoading, error, status } = usePhotosGetQuery({page, total, user})
+  const { data, isError, isLoading, status } = usePhotosGetQuery({page, total, user})
   
   useEffect(() => {
     if(data && !shouldSkip){
@@ -32,7 +32,7 @@ const FeedPhotos = ({
     
   }, [data, shouldSkip, setInfinite, status, total]);
 
-  if (isError) return <Error error={String(error)} />;
+  if (isError) return <Error error='Foto não encontrada.' />;
   if (isLoading) return <Loading />;
   if (!data) return null;
     return (

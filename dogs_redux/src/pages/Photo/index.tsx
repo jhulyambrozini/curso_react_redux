@@ -13,7 +13,7 @@ const Photo = () => {
   const { id } = useParams();
   const [shouldSkip, setShouldSkip] = useState(false)
 
-  const {data, error, isError, isLoading} = usePhotoGetQuery(id!)
+  const {data, isError, isLoading} = usePhotoGetQuery(id!)
 
   useEffect(() => {
     if(data && !shouldSkip){
@@ -21,7 +21,7 @@ const Photo = () => {
     }
   }, [data, shouldSkip]);
 
-  if (isError) return <Error error={String(error)} />;
+  if (isError) return <Error error='Foto não encontrada.' />;
   if (isLoading) return <Loading />;
   if (!data) return null;
 

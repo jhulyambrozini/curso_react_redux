@@ -1,29 +1,27 @@
 import { ButtonDeletePhoto } from './style';
-import useFetch from '../../../hooks/useFetch';
-import { PHOTO_DELETE } from '../../../api';
 
-type PhotoDeleteProps = {
-  id: number;
-};
+import { usePhotoDeleteMutation } from '../../../services/api';
 
-const PhotoDelete = ({ id }: PhotoDeleteProps) => {
-  const { loading, request } = useFetch();
+const PhotoDelete = ({ id }: {id: number}) => {
+  const [photoDelet, { isLoading }] = usePhotoDeleteMutation()
 
-  const handleClick = async () => {
+  const handleClick = () => {
     const confirm = window.confirm('Tem certeza que deseja deletar?');
 
     if (confirm) {
       const token = window.localStorage.getItem('token');
+
       if (token) {
-        const { url, options } = PHOTO_DELETE(id, token);
-        const { response } = await request(url, options);
-        if (response && response.ok) window.location.reload();
+          photoDelet({id, token})
+          .unwrap()
+          .then(() => window.location.reload())
+          .catch((error) => console.error('rejected', error))
       }
     }
   };
   return (
     <div>
-      {loading ? (
+      {isLoading ? (
         <ButtonDeletePhoto disabled>Deletando...</ButtonDeletePhoto>
       ) : (
         <ButtonDeletePhoto onClick={handleClick}>Deletar</ButtonDeletePhoto>

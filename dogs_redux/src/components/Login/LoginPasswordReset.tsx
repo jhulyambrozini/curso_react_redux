@@ -4,18 +4,17 @@ import Input from '../Input/Input';
 import Button from '../Button/Button';
 
 import useForm from '../../hooks/useForm';
-import useFetch from '../../hooks/useFetch';
 
 import Error from '../../helpers/Error';
 import Head from '../../helpers/Head';
 
-import { PASSWORD_RESET } from '../../api';
+import { usePasswordResetMutation } from '../../services/api';
 
 const LoginPasswordReset = () => {
   const [login, setLogin] = useState('');
   const [key, setKey] = useState('');
   const password = useForm();
-  const { error, loading, request } = useFetch();
+  const [passwordReset, {isLoading}] = usePasswordResetMutation()
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,17 +26,20 @@ const LoginPasswordReset = () => {
     if (login) setLogin(login);
   }, []);
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
 
     if (password.validate()) {
-      const { url, options } = PASSWORD_RESET({
+      passwordReset({
         login,
         key,
         password: password.value,
-      });
-      const { response } = await request(url, options);
-      if (response && response.ok) navigate('/login');
+      })
+      .unwrap()
+      .then(() => {
+        navigate('/login')
+      })
+      .catch((error) => console.error('rejected', error))
     }
   };
   return (
@@ -54,13 +56,13 @@ const LoginPasswordReset = () => {
           type="password"
           {...password}
         />
-        {loading ? (
+        {isLoading ? (
           <Button disabled>Resetando...</Button>
         ) : (
           <Button>Resetar</Button>
         )}
       </form>
-      <Error error={error} />
+      <Error error="Erro ao resertar." />
     </section>
   );
 };
