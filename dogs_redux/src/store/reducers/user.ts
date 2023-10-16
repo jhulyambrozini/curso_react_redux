@@ -1,29 +1,22 @@
+import { createSlice } from '@reduxjs/toolkit'
 
-import { AppDispatch } from "..";
-import { GET_USER } from "../../api";
-import createAsyncSlice from "../helper/createAsyncSlice";
-import { fetchToken } from "./token";
-
-export type User = {
-    password: string
-    username: string
+type TypeState = {
+    token: null | string
 }
 
-const userSlice = createAsyncSlice({
+const initialState: TypeState = {
+    token: null
+}
+
+const userSlice = createSlice({
     name: 'user',
-    initialState:{
-        loading: false,
-        data: null,
-        error: null
-    },
-    fetchConfig: (token: string) => GET_USER(token)
+    initialState,
+    reducers: {
+        userLogin: () => {
+            
+        }
+    }
+
 })
-
-export const fetchUser = userSlice.asyncAction
-
-export const userLogin = (user: User) => async (dispatch: AppDispatch) => {
-    await dispatch(fetchToken(user))
-  //  if(payload && payload.token) await dispatch(fetchUser(payload.token))
-}
 
 export default userSlice.reducer

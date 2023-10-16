@@ -1,5 +1,5 @@
-import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
@@ -19,8 +19,8 @@ import store from './store';
 
 function App() {
   return (
+    <Provider store={store}>
     <div className="App">
-      <Provider store={store}>
       <BrowserRouter>
         <UserStorage>
           <GlobalStyle />
@@ -60,8 +60,8 @@ function App() {
           <Footer />
         </UserStorage>
       </BrowserRouter>
-      </Provider>
     </div>
+    </Provider>
   );
 }
 

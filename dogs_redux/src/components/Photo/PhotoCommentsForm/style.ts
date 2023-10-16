@@ -9,7 +9,7 @@ export const CommentForm = styled.form<PropsOnlySingle>`
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: stretch;
-  margin: ${(props: PropsOnlySingle) => (props.single ? '1rem 0' : '1rem')};
+  margin: ${(props) => (props.single ? '1rem 0' : '1rem')};
 `;
 
 export const CommentTextarea = styled.textarea`

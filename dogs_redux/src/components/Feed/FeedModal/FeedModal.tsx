@@ -1,29 +1,20 @@
-import { Dispatch, MouseEventHandler, SetStateAction, useEffect } from 'react';
+import { Dispatch, MouseEventHandler, SetStateAction } from 'react';
 
 import PhotoContent from '../../Photo/PhotoContent/PhotoContent';
 import { Modal } from './style';
 
 import Error from '../../../helpers/Error';
 import Loading from '../../../helpers/Loading/Loading';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootReducer } from '../../../store';
-import { fetchPhoto } from '../../../store/reducers/photo';
+import { usePhotoGetQuery } from '../../../services/api';
 
 type FeedModalProps = {
   photo: Data;
   setModalPhoto: Dispatch<SetStateAction<null | Data>>;
 };
 
-
 const FeedModal = ({ photo, setModalPhoto }: FeedModalProps) => {
-
-  const {loading, error, data} = useSelector((state: RootReducer) => state.photo)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-     dispatch(fetchPhoto(photo.id))
-  }, [dispatch,photo]);
-
+ 
+  const {data, isLoading, isError, error} = usePhotoGetQuery(photo.id)
 
   const handleOutsiteClick: MouseEventHandler<HTMLDivElement> = (event) => {
     if (event.target === event.currentTarget) setModalPhoto(null);
@@ -31,11 +22,12 @@ const FeedModal = ({ photo, setModalPhoto }: FeedModalProps) => {
 
   return (
     <Modal onClick={handleOutsiteClick}>
-      {error && <Error error={error} />}
-      {loading && <Loading />}
+      {isError && <Error error={String(error)} />}
+      {isLoading && <Loading />}
       {data && (
         <PhotoContent
           single={false}
+          data={data}
         />
       )}
     </Modal>

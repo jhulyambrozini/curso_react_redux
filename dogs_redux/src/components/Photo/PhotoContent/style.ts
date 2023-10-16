@@ -8,17 +8,17 @@ type PropsOnlySingle = {
 
 export const PhotoContainer = styled.div<PropsOnlySingle>`
   margin: auto;
-  height: ${(props: PropsOnlySingle) => (props.single ? 'auto' : '36rem')};
+  height: ${(props) => (props.single ? 'auto' : '36rem')};
   border-radius: 0.2rem;
   background-color: white;
   display: grid;
-  grid-template-columns: ${(props: PropsOnlySingle) => (props.single ? '1fr' : '36rem 20rem')};
+  grid-template-columns: ${(props) => (props.single ? '1fr' : '36rem 20rem')};
   grid-template-rows: auto 1fr auto;
   overflow: hidden;
   transform: scale(0.8);
   animation: scaleUp 0.3s forwards;
-  border-radius: ${(props: PropsOnlySingle) => (props.single ? '0.4rem' : 'none')};
-  overflow: ${(props: PropsOnlySingle) => (props.single ? 'hidden' : 'none')};
+  border-radius: ${(props) => (props.single ? '0.4rem' : 'none')};
+  overflow: ${(props) => (props.single ? 'hidden' : 'none')};
 
   @keyframes scaleUp {
     to {
@@ -36,7 +36,7 @@ export const PhotoContainer = styled.div<PropsOnlySingle>`
 `;
 
 export const ImageContainer = styled.div<PropsOnlySingle>`
-  grid-row: ${(props: PropsOnlySingle) => (props.single ? '1' : '1/4')};
+  grid-row: ${(props) => (props.single ? '1' : '1/4')};
 
   @media (max-width: 64rem) {
     grid-row: 1;
@@ -44,7 +44,7 @@ export const ImageContainer = styled.div<PropsOnlySingle>`
 `;
 
 export const DatailsContainer = styled.div<PropsOnlySingle>`
-  padding: ${(props: PropsOnlySingle) =>
+  padding: ${(props) =>
     props.single ? '1rem 0px 0px 0px' : '2rem 2rem 0 2rem'};
 `;
 

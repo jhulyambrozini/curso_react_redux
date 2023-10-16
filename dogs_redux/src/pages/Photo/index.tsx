@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import PhotoContent from '../../components/Photo/PhotoContent/PhotoContent';
 
@@ -7,25 +7,22 @@ import Loading from '../../helpers/Loading/Loading';
 import Error from '../../helpers/Error';
 import Head from '../../helpers/Head';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { RootReducer } from '../../store';
-import { fetchPhoto } from '../../store/reducers/photo';
-
+import { usePhotoGetQuery } from '../../services/api';
 
 const Photo = () => {
   const { id } = useParams();
+  const [shouldSkip, setShouldSkip] = useState(false)
 
-  const {loading, error, data} = useSelector((state: RootReducer) => state.photo)
-  const dispatch = useDispatch()
+  const {data, error, isError, isLoading} = usePhotoGetQuery(id!)
 
   useEffect(() => {
-    if (id) {
-     dispatch(fetchPhoto(Number(id)))
+    if(data && !shouldSkip){
+      setShouldSkip(true)
     }
-  }, [dispatch, id]);
+  }, [data, shouldSkip]);
 
-  if (error) return <Error error={error} />;
-  if (loading) return <Loading />;
+  if (isError) return <Error error={String(error)} />;
+  if (isLoading) return <Loading />;
   if (!data) return null;
 
   const dataValid = data as DataFeedPhoto;
@@ -37,6 +34,7 @@ const Photo = () => {
       />
       <PhotoContent
         single={true}
+        data={dataValid}
       />
     </section>
   );

@@ -10,19 +10,12 @@ import useForm from '../../../hooks/useForm';
 import Error from '../../../helpers/Error';
 import Head from '../../../helpers/Head';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { RootReducer } from '../../../store';
-import { userLogin } from '../../../store/reducers/user';
+import { useUser } from '../../../context/UserContext';
 
 export const LoginForm = () => {
   const usernameValue = useForm();
   const passwordValue = useForm();
-  const dispatch = useDispatch()
-
-  const {token, user} = useSelector((state: RootReducer) => state)
-  const loading = token.loading || user.loading
-  const error = token.error || user.error
-
+  const { userLogin, error, loading } = useUser();
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
@@ -30,8 +23,8 @@ export const LoginForm = () => {
     if (usernameValue.validate() && passwordValue.validate()) {
       const username = usernameValue.value;
       const password = passwordValue.value;
-      
-      dispatch(userLogin({username, password}))
+
+      userLogin(username, password);
     }
   };
 

@@ -7,9 +7,9 @@ import {
 } from 'react';
 import { CommentButton, CommentForm, CommentTextarea } from './style';
 import { ReactComponent as SendIcon } from '../../../assets/enviar.svg';
-import useFetch from '../../../hooks/useFetch';
-import { COMMENT_POST } from '../../../api';
+
 import Error from '../../../helpers/Error';
+import { useCommentPostMutation } from '../../../services/api';
 
 type PhotoCommentsFormProps = {
   id: number;
@@ -23,7 +23,7 @@ const PhotoCommentsForm = ({
   single,
 }: PhotoCommentsFormProps) => {
   const [comment, setComment] = useState('');
-  const { request, error } = useFetch();
+  const [postComment, {data, isError}] = useCommentPostMutation()
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
@@ -31,14 +31,25 @@ const PhotoCommentsForm = ({
     const token = window.localStorage.getItem('token');
 
     if (token && comment) {
-      const { url, options } = COMMENT_POST(id, { comment }, token);
-
-      const res = await request(url, options);
-      const json: Comments = res.json;
-
-      if (res.response && res.response.ok) {
-        setComment('');
-        setComments((prevComments: Comments[]) => [...prevComments, json]);
+      try {
+        const result = await postComment({
+          id: id,
+          body: {
+            comment: comment
+          },
+          token: token
+        })
+       
+        if('data' in result && result.data){
+          console.log(result.data)
+          console.log(data)
+          setComment('')
+          setComments((prevComments: Comments[]) => [...prevComments, result.data])
+        } else if('error' in result){
+          console.error(result.error)
+        }
+      } catch (error) {
+        console.error(error);
       }
     }
   };
@@ -63,7 +74,8 @@ const PhotoCommentsForm = ({
       <CommentButton>
         <SendIcon />
       </CommentButton>
-      <Error error={error} />
+
+      {isError && <Error error='Um erro aconteceu' />}
     </CommentForm>
   );
 };

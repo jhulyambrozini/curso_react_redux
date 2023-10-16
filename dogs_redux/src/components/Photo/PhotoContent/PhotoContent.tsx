@@ -13,18 +13,16 @@ import {
 } from './style';
 import Image from '../../../helpers/Image/Image';
 import { useUser } from '../../../context/UserContext';
-import { useSelector } from 'react-redux';
-import { RootReducer } from '../../../store';
 
 type PhotoContentProps = {
+  data: DataFeedPhoto;
   single: boolean;
 };
 
-
-const PhotoContent = ({ single }: PhotoContentProps) => {
+const PhotoContent = ({ data, single }: PhotoContentProps) => {
+  const { photo, comments } = data;
   const user = useUser();
-  const {photo}: DataState = useSelector((state: RootReducer) => state.photo.data)
- 
+
   return (
     <PhotoContainer single={single}>
       <ImageContainer single={single}>
@@ -59,6 +57,8 @@ const PhotoContent = ({ single }: PhotoContentProps) => {
       </DatailsContainer>
       <PhotoComments
         single={single}
+        id={photo.id}
+        comments={comments}
       />
     </PhotoContainer>
   );

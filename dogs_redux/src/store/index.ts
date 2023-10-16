@@ -1,15 +1,15 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit"
-import { useDispatch } from "react-redux"
-import photo from "./reducers/photo"
-import token from "./reducers/token"
-import user from "./reducers/user"
+import {configureStore} from '@reduxjs/toolkit'
+import tokenSlice from './reducers/token'
+import api from '../services/api'
 
-const reducer = combineReducers({photo, token, user})
-
-const store = configureStore({reducer})
+const store = configureStore({
+    reducer: {
+        token: tokenSlice,
+        [api.reducerPath]: api.reducer
+    },
+    middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(api.middleware)
+})
 
 export default store
 export type RootReducer = ReturnType<typeof store.getState>
-
-export type AppDispatch = typeof store.dispatch
-export const useAppDispatch: () => AppDispatch = useDispatch

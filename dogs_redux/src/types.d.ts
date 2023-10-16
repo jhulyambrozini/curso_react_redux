@@ -10,11 +10,6 @@ declare type Data = {
     total_comments: string
 }
 
-declare  type DataState = {
-    photo: Data
-    comments: Comments[]
-  }
-
 declare type Comments = {
     comment_ID: string
     comment_agent: string

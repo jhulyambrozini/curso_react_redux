@@ -1,16 +1,20 @@
-import { TOKEN_POST } from "../../api";
-import createAsyncSlice from "../helper/createAsyncSlice";
-import { User } from "./user";
+import { createSlice } from '@reduxjs/toolkit'
 
-const tokenSlice = createAsyncSlice({
+type TypeState = {
+    token: null | string
+}
+
+const initialState: TypeState = {
+    token: null
+}
+
+const tokenSlice = createSlice({
     name: 'token',
-    initialState:{
-        loading: false,
-        data: null,
-        error: null
-    },
-    fetchConfig: (user: User) => TOKEN_POST(user)
+    initialState,
+    reducers: {
+
+    }
+
 })
 
-export const fetchToken = tokenSlice.asyncAction
 export default tokenSlice.reducer

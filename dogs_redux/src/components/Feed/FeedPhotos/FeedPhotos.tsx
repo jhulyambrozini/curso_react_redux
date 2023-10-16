@@ -1,12 +1,11 @@
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import FeedPhotoItem from '../FeedPhotoItem/FeedPhotoItem';
 import { FeedList } from './style';
 
-import useFetch from '../../../hooks/useFetch';
 import Error from '../../../helpers/Error';
 import Loading from '../../../helpers/Loading/Loading';
-import { PHOTOS_GET } from '../../../api';
+import {  usePhotosGetQuery } from '../../../services/api';
 
 type FeedPhotosProps = {
   setModalPhoto: Dispatch<SetStateAction<null | Data>>;
@@ -15,44 +14,30 @@ type FeedPhotosProps = {
   page: number;
 };
 
-type ResponseFetch = {
-  data: Data[] | null;
-  loading: boolean;
-  error: null;
-  request: (
-    url: RequestInfo | URL,
-    options: RequestInit | undefined
-  ) => Promise<{
-    response: Response | undefined;
-    json: Data[];
-  }>;
-};
-
 const FeedPhotos = ({
   setModalPhoto,
   user,
   page,
   setInfinite,
 }: FeedPhotosProps) => {
-  const fetchResponse: ResponseFetch = useFetch();
-
+  const [shouldSkip, setShouldSkip] = useState(false)
+  let total = 3
+  const { data, isError, isLoading, error, status } = usePhotosGetQuery({page, total, user})
+  
   useEffect(() => {
-    const fetchPhotos = async () => {
-      const total = 3;
+    if(data && !shouldSkip){
+      setShouldSkip(true)
+    }
+    if(status === 'fulfilled' && data.length < total) setInfinite(false)
+    
+  }, [data, shouldSkip, setInfinite, status, total]);
 
-      const { url, options } = PHOTOS_GET(page, total, user);
-      const { response, json } = await fetchResponse.request(url, options);
-      if (response && response.ok && json.length < total) setInfinite(false);
-    };
-    fetchPhotos();
-  }, [fetchResponse.request, setInfinite, page, user]);
-
-  if (fetchResponse.error) return <Error error={fetchResponse.error} />;
-  if (fetchResponse.loading) return <Loading />;
-  if (!fetchResponse.data) return null;
+  if (isError) return <Error error={String(error)} />;
+  if (isLoading) return <Loading />;
+  if (!data) return null;
     return (
       <FeedList className="animeLeft">
-        {fetchResponse.data?.map((photo) => (
+        {data?.map((photo: any) => (
           <FeedPhotoItem
             key={photo.id}
             photo={photo}

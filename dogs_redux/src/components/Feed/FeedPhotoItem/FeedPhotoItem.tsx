@@ -6,6 +6,7 @@ type FeedPhotoItemProps = {
   photo: Data;
   setModalPhoto: Dispatch<SetStateAction<null | Data>>;
 };
+
 const FeedPhotoItem = ({ photo, setModalPhoto }: FeedPhotoItemProps) => {
   const handleClick: MouseEventHandler<HTMLLIElement> = () => {
     setModalPhoto(photo);
