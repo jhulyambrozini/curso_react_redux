@@ -1,60 +1,60 @@
 import { useEffect, useState } from 'react';
 import FeedModal from './FeedModal/FeedModal';
 import FeedPhotos from './FeedPhotos/FeedPhotos';
+import { RootReducer, useAppDispatch } from '../../store';
+import { getPhotosAsync } from '../../store/reducers/feed';
+import { useSelector } from 'react-redux';
 
-type FeedProps = {
-  user: number | string;
-};
+import { ReactComponent as MoreSvg } from '../../assets/adicionar.svg';
 
-const Feed = ({ user }: FeedProps) => {
-  const [modalPhoto, setModalPhoto] = useState<Data | null>(null);
-  const [pages, setPages] = useState([1]);
-  const [infinite, setInfinite] = useState(true);
+import Loading from '../../helpers/Loading/Loading';
+import Error from '../../helpers/Error';
+import { ButtonMore } from './style';
+
+const Feed = ({ user }: {user: number | string}) => {
+
+  const [page, setPages] = useState(1);
+  const dispatch = useAppDispatch()
+  let total = 3
+  const {list, loading, error} = useSelector((state: RootReducer) => state.feed)
 
   useEffect(() => {
-    let wait = false;
-    const inifineScroll = () => {
-      if (infinite) {
-        const scroll = window.scrollY;
-        const height = document.body.offsetHeight - window.innerHeight;
+      dispatch(getPhotosAsync({page, total, user}))
+  }, [page, user])
 
-        if (scroll > height * 0.75 && !wait) {
-          setPages((pages) => [...pages, pages.length + 1]);
-          wait = true;
-
-          setTimeout(() => {
-            wait = false;
-          }, 500);
-        }
-      }
-    };
-
-    window.addEventListener('wheel', inifineScroll);
-    window.addEventListener('scroll', inifineScroll);
-
-    return () => {
-      window.removeEventListener('wheel', inifineScroll);
-      window.removeEventListener('scroll', inifineScroll);
-    };
-  }, [infinite]);
+  
+  if (error) return <Error error='Foto não encontrada.' />;
+  if (loading) return <Loading />;
+  if(!list) return null
 
   return (
     <div>
-      {modalPhoto && (
-        <FeedModal
-          photo={modalPhoto}
-          setModalPhoto={setModalPhoto}
-        />
-      )}
-      {pages.map((page) => (
-        <FeedPhotos
-          key={page}
-          user={user}
-          page={page}
-          setModalPhoto={setModalPhoto}
-          setInfinite={setInfinite}
-        />
-      ))}
+      {list?.map((photo: PhotosType) => (
+          <FeedModal
+            key={photo.id}
+            photo={photo}
+          />
+        ))}
+        
+        <FeedPhotos/>
+        {list?.length === 0 ?  (
+          <>
+           <p
+          style={{
+            textAlign: 'center',
+            padding: '2rem 0 4rem 0',
+            color: '#888',
+          }}
+        >
+          Não existem mais postagens.
+        </p>
+          <ButtonMore  onClick={() => setPages(1)}>RECARREGAR</ButtonMore>
+         </>
+        ) : (
+          <ButtonMore onClick={() => setPages(page + 1)}>
+            <MoreSvg/>
+          </ButtonMore>
+        )}
     </div>
   );
 };

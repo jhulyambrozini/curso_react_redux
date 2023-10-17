@@ -8,7 +8,7 @@ type UserResponse = {
 }
 
 type TypeState = {
-    data: null | UserResponse
+    data: null | UserResponse 
     error: undefined | string
     loading: boolean
     login: boolean

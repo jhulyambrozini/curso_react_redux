@@ -1,51 +1,24 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import FeedPhotoItem from '../FeedPhotoItem/FeedPhotoItem';
 import { FeedList } from './style';
 
-import Error from '../../../helpers/Error';
-import Loading from '../../../helpers/Loading/Loading';
-import {  usePhotosGetQuery } from '../../../services/api';
+import { RootReducer } from '../../../store';
+import { useSelector } from 'react-redux';
 
-type FeedPhotosProps = {
-  setModalPhoto: Dispatch<SetStateAction<null | Data>>;
-  setInfinite: Dispatch<SetStateAction<boolean>>;
-  user: number | string;
-  page: number;
-};
+const FeedPhotos = () => {
+  const {list} = useSelector((state: RootReducer) => state.feed)
 
-const FeedPhotos = ({
-  setModalPhoto,
-  user,
-  page,
-  setInfinite,
-}: FeedPhotosProps) => {
-  const [shouldSkip, setShouldSkip] = useState(false)
-  let total = 3
-  const { data, isError, isLoading, status } = usePhotosGetQuery({page, total, user})
-  console.log(data)
-  
-  useEffect(() => {
-    if(data && !shouldSkip){
-      setShouldSkip(true)
-    }
-    if(status === 'fulfilled' && data.length < total) setInfinite(false)
-    
-  }, [data, shouldSkip, setInfinite, status, total]);
-
-  if (isError) return <Error error='Foto não encontrada.' />;
-  if (isLoading) return <Loading />;
-  if (!data) return null;
+  if (!list) return null;
     return (
       <FeedList className="animeLeft">
-        {data?.map((photo: any) => (
+        {list?.map((photo: PhotosType) => (
           <FeedPhotoItem
             key={photo.id}
             photo={photo}
-            setModalPhoto={setModalPhoto}
           />
         ))}
       </FeedList>
+      
     );
 };
 

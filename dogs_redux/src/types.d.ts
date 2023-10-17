@@ -1,5 +1,5 @@
-declare type Data = {
-    acessos: number
+type PhotosType = {
+    acessos: string
     author: string
     date: string
     id: number
@@ -30,7 +30,7 @@ declare type Comments = {
 
 declare type DataFeedPhoto = {
     comments: Comments[]
-    photo: Data
+    photo: PhotosTypes
 }
 
 declare type commentData = {

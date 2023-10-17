@@ -1,15 +1,16 @@
-import { Dispatch, MouseEventHandler, SetStateAction } from 'react';
+import { MouseEventHandler } from 'react';
 import { PhotoItem, Views } from './style';
 import Image from '../../../helpers/Image/Image';
+import { useAppDispatch } from '../../../store';
+import { openModal } from '../../../store/reducers/modal';
+import { usePhotoGetQuery } from '../../../services/api';
 
-type FeedPhotoItemProps = {
-  photo: Data;
-  setModalPhoto: Dispatch<SetStateAction<null | Data>>;
-};
+const FeedPhotoItem = ({ photo }: {photo: PhotosType}) => {
+  const dispatch = useAppDispatch()
 
-const FeedPhotoItem = ({ photo, setModalPhoto }: FeedPhotoItemProps) => {
   const handleClick: MouseEventHandler<HTMLLIElement> = () => {
-    setModalPhoto(photo);
+    dispatch(openModal())
+    usePhotoGetQuery(photo.id)
   };
 
   return (

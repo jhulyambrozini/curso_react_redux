@@ -11,12 +11,6 @@ type PhotoPostType = {
     token: string
 }
 
-type PhotosGetType = {
-    page: number
-    total: number
-    user: number | string
-}
-
 type CommentPostType = {
     id: number
     body: {
@@ -73,13 +67,6 @@ const api = createApi({
                         Authorization: 'Bearer ' + data.token
                     },
                     body: data.formData
-            })
-        }),
-        photosGet: builder.query<any, PhotosGetType>({
-            query: (data) => ({
-                url: `api/photo/?_page=${data.page}&_total=${data.total}&_user=${data.user}`,
-                method: 'GET',
-                cache: 'no-store'
             })
         }),
         photoGet: builder.query<any, number | string>({
@@ -151,6 +138,5 @@ export const {
     usePhotoDeleteMutation,
     usePhotoGetQuery,
     usePhotoPostMutation,
-    usePhotosGetQuery,
     useStatisticsGetQuery
 } = api
