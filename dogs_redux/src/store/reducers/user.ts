@@ -21,8 +21,6 @@ type loginUserResponse = {
   user_nicename: string
 }
 
-
-// Defina uma ação assíncrona para buscar os dados do usuário
 export const fetchUser = async (token: string) => {
   const response = await fetch(`https://dogsapi.origamid.dev/json/api/user/`, {
     method: 'GET',
@@ -34,7 +32,6 @@ export const fetchUser = async (token: string) => {
   return data;
 }
 
-// Define uma ação assíncrona para o login do usuário
 export const loginUserAsync = createAsyncThunk('user/login', async (credentials: { username: string, password: string }) => {
   const response = await fetch('https://dogsapi.origamid.dev/json/jwt-auth/v1/token', {
     method: 'POST',
@@ -54,7 +51,6 @@ export const loginUserAsync = createAsyncThunk('user/login', async (credentials:
   }
 });
 
-// Define uma ação assíncrona para o login automático
 export const autoLoginAsync = createAsyncThunk('user/autoLogin', async (token: string) => {
   const response = await fetch('https://dogsapi.origamid.dev/json/jwt-auth/v1/token/validate', {
     method: 'POST',

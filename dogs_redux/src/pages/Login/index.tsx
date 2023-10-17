@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { Route, Routes, Navigate } from 'react-router-dom';
 
 import { LoginForm } from '../../components/Login/LoginForm/LoginForm';
@@ -8,7 +9,7 @@ import LoginPasswordReset from '../../components/Login/LoginPasswordReset';
 import NotFound from '../NotFound/NotFound';
 
 import { Forms, LoginContainer } from './style';
-import { useSelector } from 'react-redux';
+
 import { RootReducer } from '../../store';
 
 const Login = () => {

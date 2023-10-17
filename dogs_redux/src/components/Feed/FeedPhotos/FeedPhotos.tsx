@@ -1,9 +1,9 @@
+import { useSelector } from 'react-redux';
 
 import FeedPhotoItem from '../FeedPhotoItem/FeedPhotoItem';
 import { FeedList } from './style';
 
 import { RootReducer } from '../../../store';
-import { useSelector } from 'react-redux';
 
 const FeedPhotos = () => {
   const {list} = useSelector((state: RootReducer) => state.feed)

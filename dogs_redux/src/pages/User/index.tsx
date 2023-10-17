@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
 import UserPhotoPost from '../../components/User/UserPhotoPost/UserPhotoPost';
@@ -8,7 +9,7 @@ import UserHeader from '../../components/User/UserHeader/UserHeader';
 
 import NotFound from '../NotFound/NotFound';
 import Head from '../../helpers/Head';
-import { useSelector } from 'react-redux';
+
 import { RootReducer } from '../../store';
 
 const User = () => {

@@ -5,6 +5,7 @@ import {
   SetStateAction,
   useState,
 } from 'react';
+
 import { CommentButton, CommentForm, CommentTextarea } from './style';
 import { ReactComponent as SendIcon } from '../../../assets/enviar.svg';
 

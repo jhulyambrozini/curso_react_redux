@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { FormEventHandler } from 'react';
 
 import Input from '../../Input/Input';
@@ -12,7 +13,6 @@ import Head from '../../../helpers/Head';
 
 import { loginUserAsync } from '../../../store/reducers/user';
 import { RootReducer, useAppDispatch } from '../../../store';
-import { useSelector } from 'react-redux';
 
 export const LoginForm = () => {
   const usernameValue = useForm();

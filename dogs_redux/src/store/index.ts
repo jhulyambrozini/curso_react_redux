@@ -1,8 +1,10 @@
 import {configureStore} from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
+
 import userSlice from './reducers/user'
 import feedSlice from './reducers/feed'
 import modalSlice from './reducers/modal'
+
 import api from '../services/api'
 
 const store = configureStore({

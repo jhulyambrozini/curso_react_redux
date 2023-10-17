@@ -1,15 +1,17 @@
+import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+
 import FeedModal from './FeedModal/FeedModal';
 import FeedPhotos from './FeedPhotos/FeedPhotos';
+import { ReactComponent as MoreSvg } from '../../assets/adicionar.svg';
+
 import { RootReducer, useAppDispatch } from '../../store';
 import { getPhotosAsync } from '../../store/reducers/feed';
-import { useSelector } from 'react-redux';
 
-import { ReactComponent as MoreSvg } from '../../assets/adicionar.svg';
 
 import Loading from '../../helpers/Loading/Loading';
 import Error from '../../helpers/Error';
-import { ButtonMore } from './style';
+import { ButtonMore, FeedContainer } from './style';
 
 const Feed = ({ user }: {user: number | string}) => {
 
@@ -28,7 +30,7 @@ const Feed = ({ user }: {user: number | string}) => {
   if(!list) return null
 
   return (
-    <div>
+    <FeedContainer>
       {list?.map((photo: PhotosType) => (
           <FeedModal
             key={photo.id}
@@ -55,7 +57,7 @@ const Feed = ({ user }: {user: number | string}) => {
             <MoreSvg/>
           </ButtonMore>
         )}
-    </div>
+    </FeedContainer>
   );
 };
 

@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import {  MouseEventHandler } from 'react';
 
 import PhotoContent from '../../Photo/PhotoContent/PhotoContent';
@@ -5,8 +6,9 @@ import { Modal } from './style';
 
 import Error from '../../../helpers/Error';
 import Loading from '../../../helpers/Loading/Loading';
+
 import { usePhotoGetQuery } from '../../../services/api';
-import { useSelector } from 'react-redux';
+
 import { RootReducer, useAppDispatch } from '../../../store';
 import { closeModal } from '../../../store/reducers/modal';
 

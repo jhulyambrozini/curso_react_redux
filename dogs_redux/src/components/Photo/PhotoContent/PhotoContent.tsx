@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import PhotoComments from '../PhotoComents/PhotoComments';
@@ -11,8 +12,8 @@ import {
   PhotoContainer,
   Viwes,
 } from './style';
+
 import Image from '../../../helpers/Image/Image';
-import { useSelector } from 'react-redux';
 import { RootReducer } from '../../../store';
 
 type PhotoContentProps = {

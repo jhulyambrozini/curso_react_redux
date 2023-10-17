@@ -1,7 +1,9 @@
+import { useSelector } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
+
 import PhotoCommentsForm from '../PhotoCommentsForm/PhotoCommentsForm';
 import { CommentsList } from './style';
-import { useSelector } from 'react-redux';
+
 import { RootReducer } from '../../../store';
 
 type PhotoCommentsProps = {

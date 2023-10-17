@@ -1,10 +1,10 @@
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { ReactComponent as DogSvg } from '../../assets/dogs.svg';
 import userIcon from '../../assets/usuario.svg';
 
 import { HeaderContainer, LinkLogin, Login, Nav } from './style';
-import { useSelector } from 'react-redux';
 import { RootReducer } from '../../store';
 
 const Header = () => {

@@ -1,6 +1,8 @@
 import { useSelector } from 'react-redux';
+
 import Feed from '../../components/Feed/Feed';
 import Head from '../../helpers/Head';
+
 import { RootReducer } from '../../store';
 
 const Home = () => {

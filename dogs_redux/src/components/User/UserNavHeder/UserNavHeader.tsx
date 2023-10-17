@@ -6,7 +6,9 @@ import { ReactComponent as MyPhotosIcon } from '../../../assets/feed.svg';
 import { ReactComponent as StatisticsIcon } from '../../../assets/estatisticas.svg';
 import { ReactComponent as AddPhotoIcon } from '../../../assets/adicionar.svg';
 import { ReactComponent as LogoutIcon } from '../../../assets/sair.svg';
+
 import useMedia from '../../../hooks/useMedia';
+
 import { useAppDispatch } from '../../../store';
 import { userLogout } from '../../../store/reducers/user';
 
