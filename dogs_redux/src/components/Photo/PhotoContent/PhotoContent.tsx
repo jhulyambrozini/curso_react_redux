@@ -12,7 +12,8 @@ import {
   Viwes,
 } from './style';
 import Image from '../../../helpers/Image/Image';
-import { useUser } from '../../../context/UserContext';
+import { useSelector } from 'react-redux';
+import { RootReducer } from '../../../store';
 
 type PhotoContentProps = {
   data: DataFeedPhoto;
@@ -21,7 +22,7 @@ type PhotoContentProps = {
 
 const PhotoContent = ({ data, single }: PhotoContentProps) => {
   const { photo, comments } = data;
-  const user = useUser();
+  const user = useSelector((state: RootReducer) => state.user)
 
   return (
     <PhotoContainer single={single}>

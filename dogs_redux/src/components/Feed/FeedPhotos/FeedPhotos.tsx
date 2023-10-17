@@ -23,6 +23,7 @@ const FeedPhotos = ({
   const [shouldSkip, setShouldSkip] = useState(false)
   let total = 3
   const { data, isError, isLoading, status } = usePhotosGetQuery({page, total, user})
+  console.log(data)
   
   useEffect(() => {
     if(data && !shouldSkip){

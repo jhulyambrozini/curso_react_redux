@@ -1,5 +1,5 @@
+import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Provider } from 'react-redux';
 
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
@@ -14,15 +14,23 @@ import NotFound from './pages/NotFound/NotFound';
 import { GlobalStyle } from './styles';
 import ProtectedRouter from './helpers/ProtectedRouter';
 
-import { UserStorage } from './context/UserContext';
-import store from './store';
+import { autoLoginAsync } from './store/reducers/user';
+import { useAppDispatch } from './store';
 
 function App() {
+  const dispatch = useAppDispatch()
+  const token = window.localStorage.getItem('token');
+
+  useEffect(() => {
+    if (token) {
+      dispatch(autoLoginAsync(token));
+    }
+  }, [token, dispatch]);
+
   return (
-    <Provider store={store}>
+   
     <div className="App">
       <BrowserRouter>
-        <UserStorage>
           <GlobalStyle />
           <Header />
           <main className="AppBody">
@@ -58,10 +66,8 @@ function App() {
             </Routes>
           </main>
           <Footer />
-        </UserStorage>
       </BrowserRouter>
     </div>
-    </Provider>
   );
 }
 

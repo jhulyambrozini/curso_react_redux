@@ -1,11 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
-import tokenSlice from './reducers/token'
+import userSlice from './reducers/user'
 import api from '../services/api'
 
 const store = configureStore({
     reducer: {
-        token: tokenSlice,
+        user: userSlice,
         [api.reducerPath]: api.reducer
     },
     middleware: (getDefaultMiddleware) =>

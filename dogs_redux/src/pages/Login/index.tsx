@@ -8,10 +8,11 @@ import LoginPasswordReset from '../../components/Login/LoginPasswordReset';
 import NotFound from '../NotFound/NotFound';
 
 import { Forms, LoginContainer } from './style';
-import { useUser } from '../../context/UserContext';
+import { useSelector } from 'react-redux';
+import { RootReducer } from '../../store';
 
 const Login = () => {
-  const { login } = useUser();
+  const {login} = useSelector((state: RootReducer) => state.user)
 
   if (login) return <Navigate to="/account" />;
   return (

@@ -7,13 +7,14 @@ import { ReactComponent as StatisticsIcon } from '../../../assets/estatisticas.s
 import { ReactComponent as AddPhotoIcon } from '../../../assets/adicionar.svg';
 import { ReactComponent as LogoutIcon } from '../../../assets/sair.svg';
 import useMedia from '../../../hooks/useMedia';
-import { useUser } from '../../../context/UserContext';
+import { useAppDispatch } from '../../../store';
+import { userLogout } from '../../../store/reducers/user';
 
 const UserNavHeader = () => {
-  const { userLogout } = useUser();
   const navigate = useNavigate();
   const mobile = useMedia('(max-width: 40rem)');
   const [mobileMenu, setMobileMenu] = useState(false);
+  const dispatch = useAppDispatch()
 
   const { pathname } = useLocation();
 
@@ -22,7 +23,7 @@ const UserNavHeader = () => {
   }, [pathname]);
 
   const handleLogout = () => {
-    userLogout();
+    dispatch(userLogout())
     navigate('/login');
   };
 

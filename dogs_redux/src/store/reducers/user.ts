@@ -11,25 +11,31 @@ type TypeState = {
     data: null | UserResponse
     error: undefined | string
     loading: boolean
-    login: null | boolean
+    login: boolean
+}
+
+type loginUserResponse = {
+  token: string
+  user_display_name: string
+  user_email: string
+  user_nicename: string
 }
 
 
 // Defina uma ação assíncrona para buscar os dados do usuário
-export const fetchUser = createAsyncThunk('user/fetchUser', async (token: string) => {
+export const fetchUser = async (token: string) => {
   const response = await fetch(`https://dogsapi.origamid.dev/json/api/user/`, {
     method: 'GET',
     headers: {
         Authorization: 'Bearer' + token
     }
   });
-  const data = await response.json();
-  console.log(data)
+  const data = await response.json()
   return data;
-});
+}
 
 // Define uma ação assíncrona para o login do usuário
-export const loginUserAsync = createAsyncThunk('user/login', async (credentials: { username: string, password: string }, { dispatch }) => {
+export const loginUserAsync = createAsyncThunk('user/login', async (credentials: { username: string, password: string }) => {
   const response = await fetch('https://dogsapi.origamid.dev/json/jwt-auth/v1/token', {
     method: 'POST',
     headers:{
@@ -39,8 +45,9 @@ export const loginUserAsync = createAsyncThunk('user/login', async (credentials:
   });
 
   if (response.ok) {
-    const data = await response.json();
-    window.localStorage.setItem('token', data.token);
+    const json: loginUserResponse = await response.json()
+    window.localStorage.setItem('token', json.token);
+    const data = await fetchUser(json.token)
     return data;
   } else {
     throw new Error('Falha no login');
@@ -48,7 +55,7 @@ export const loginUserAsync = createAsyncThunk('user/login', async (credentials:
 });
 
 // Define uma ação assíncrona para o login automático
-export const autoLoginAsync = createAsyncThunk('user/autoLogin', async (token: string, { dispatch }) => {
+export const autoLoginAsync = createAsyncThunk('user/autoLogin', async (token: string) => {
   const response = await fetch('https://dogsapi.origamid.dev/json/jwt-auth/v1/token/validate', {
     method: 'POST',
     headers: {
@@ -56,56 +63,64 @@ export const autoLoginAsync = createAsyncThunk('user/autoLogin', async (token: s
     },
   });
 
-  if (response.ok) {
-    const data = await response.json();
-    return data;
-  } else {
-    throw new Error('Falha no login automático');
-  }
+  if (!response.ok) throw new Error('Falha no login automático')
+
+  const data = await fetchUser(token)
+  return data
+
 });
 
-
 const initialState: TypeState = {
-    data: null,
-    login: false,
-    loading: false,
-    error: undefined,
+  data: null,
+  login: false,
+  loading: false,
+  error: undefined,
 }
 
 const userSlice = createSlice({
-  name: 'user',
-  initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(loginUserAsync.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(loginUserAsync.fulfilled, (state, action) => {
-        state.loading = false;
-        state.data = action.payload;
-        state.login = true;
-      })
-      .addCase(loginUserAsync.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-        state.login = false;
-      })
-      .addCase(autoLoginAsync.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(autoLoginAsync.fulfilled, (state, action) => {
-        state.loading = false;
-        state.data = action.payload;
-        state.login = true;
-      })
-      .addCase(autoLoginAsync.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-        state.login = false;
-      });
-  },
+name: 'user',
+initialState,
+reducers: {
+  userLogout: (state) => {
+    state.data = null
+    state.error = undefined
+    state.loading = false
+    state.login = false
+
+    window.localStorage.removeItem('token')
+  }
+},
+extraReducers: (builder) => {
+  builder
+    .addCase(loginUserAsync.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(loginUserAsync.fulfilled, (state, action) => {
+      state.loading = false;
+      state.data = action.payload;
+      state.login = true;
+    })
+    .addCase(loginUserAsync.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+      state.login = false;
+    })
+    .addCase(autoLoginAsync.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(autoLoginAsync.fulfilled, (state, action) => {
+      state.loading = false;
+      state.data = action.payload;
+      state.login = true;
+    })
+    .addCase(autoLoginAsync.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+      state.login = false;
+    });
+},
 });
 
 export default userSlice.reducer;
+export const {userLogout} = userSlice.actions
 

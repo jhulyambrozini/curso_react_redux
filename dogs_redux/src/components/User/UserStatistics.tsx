@@ -11,7 +11,6 @@ const UserStatisticsGraphs = lazy(
 );
 
 const UserStatistics = () => {
-
   const token = window.localStorage.getItem('token');
   const { data, isError, isLoading, error } = useStatisticsGetQuery(token!)
   

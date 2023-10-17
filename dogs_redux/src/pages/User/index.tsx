@@ -8,10 +8,11 @@ import UserHeader from '../../components/User/UserHeader/UserHeader';
 
 import NotFound from '../NotFound/NotFound';
 import Head from '../../helpers/Head';
-import { useUser } from '../../context/UserContext';
+import { useSelector } from 'react-redux';
+import { RootReducer } from '../../store';
 
 const User = () => {
-  const { data } = useUser();
+  const {data} = useSelector((state: RootReducer) => state.user)
 
   if (!data) return null;
   return (
@@ -24,7 +25,7 @@ const User = () => {
       <Routes>
         <Route
           path="/"
-          element={<Feed user={data?.id} />}
+          element={<Feed user={data.id} />}
         />
         <Route
           path="post"

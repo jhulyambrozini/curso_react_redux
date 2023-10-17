@@ -8,8 +8,9 @@ import useForm from '../../hooks/useForm';
 import Error from '../../helpers/Error';
 import Head from '../../helpers/Head';
 
-import { useUser } from '../../context/UserContext';
 import { useUserPostMutation } from '../../services/api';
+import { useAppDispatch } from '../../store';
+import { loginUserAsync } from '../../store/reducers/user';
 
 export const LoginCreate = () => {
   const username = useForm();
@@ -17,7 +18,7 @@ export const LoginCreate = () => {
   const password = useForm();
   const [userPost, {isLoading, error}] = useUserPostMutation()
 
-  const { userLogin } = useUser();
+  const dispatch = useAppDispatch()
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
@@ -27,7 +28,10 @@ export const LoginCreate = () => {
       email: email.value
     })
     .unwrap()
-    .then(() => userLogin(username.value, password.value))
+    .then(() => dispatch(loginUserAsync({
+      username: username.value,
+      password: password.value
+    })))
     .catch((error) =>  console.error(error))
   };
 

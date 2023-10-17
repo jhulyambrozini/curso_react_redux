@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import PhotoCommentsForm from '../PhotoCommentsForm/PhotoCommentsForm';
 import { CommentsList } from './style';
-import { useUser } from '../../../context/UserContext';
+import { useSelector } from 'react-redux';
+import { RootReducer } from '../../../store';
 
 type PhotoCommentsProps = {
   id: number;
@@ -10,7 +11,7 @@ type PhotoCommentsProps = {
 };
 
 const PhotoComments = ({ id, comments, single }: PhotoCommentsProps) => {
-  const { login } = useUser();
+  const {login} = useSelector((state: RootReducer) => state.user)
   const [commentsState, setCommentsState] = useState(() => comments);
   const commentSection = useRef<null | HTMLUListElement>(null);
 

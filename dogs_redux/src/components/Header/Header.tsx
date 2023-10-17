@@ -4,10 +4,11 @@ import { ReactComponent as DogSvg } from '../../assets/dogs.svg';
 import userIcon from '../../assets/usuario.svg';
 
 import { HeaderContainer, LinkLogin, Login, Nav } from './style';
-import { useUser } from '../../context/UserContext';
+import { useSelector } from 'react-redux';
+import { RootReducer } from '../../store';
 
 const Header = () => {
-  const { data } = useUser();
+  const {data} = useSelector((state: RootReducer) => state.user)
 
   return (
     <HeaderContainer>
@@ -25,7 +26,7 @@ const Header = () => {
               to="/account"
               title="Clique aqui para ir para ir para home da conta"
             >
-              {data.nome}
+              {data?.nome}
             </Login>
           ) : (
             <Login
@@ -39,7 +40,7 @@ const Header = () => {
             to="/login"
             title="Clique aqui para ir para a pagina de login"
           ></Login>
-          <img
+           <img
             src={userIcon}
             alt="icon de usuário"
           />
