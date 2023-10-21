@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 type PhotosGetType = {
     page: number
-    total: number
     user: number | string
 }
 
@@ -14,7 +13,7 @@ type StateType = {
 }
 
 export const getPhotosAsync = createAsyncThunk('feed/getPhotos', async (data: PhotosGetType) => {
-    const response = await fetch(`https://dogsapi.origamid.dev/json/api/photo/?_page=${data.page}&_total=${data.total}&_user=${data.user}`, {
+    const response = await fetch(`https://dogsapi.origamid.dev/json/api/photo/?_page=${data.page}&_total=6&_user=${data.user}`, {
         method: 'GET',
         cache: 'no-store'
     })

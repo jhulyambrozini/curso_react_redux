@@ -8,7 +8,7 @@ const Home = () => {
         title="Fotos"
         description="Home do site Dogs, com o feed de fotos"
       />
-      <Feed user={0} />
+      <Feed user={0}/>
     </section>
   );
 };

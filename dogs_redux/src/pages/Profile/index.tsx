@@ -13,7 +13,7 @@ const UserProfile = () => {
           description="Perfil do usuário no site Dogs"
         />
         <h1 className="title">{user}</h1>
-        <Feed user={user} />
+        <Feed user={user}/>
       </section>
     );
   else return null;

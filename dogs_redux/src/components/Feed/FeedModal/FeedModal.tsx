@@ -13,7 +13,6 @@ import { closeModal } from '../../../store/reducers/modal';
 
 const FeedModal = () => {
   const {data, loading, error} = useSelector((state: RootReducer) => state.photo)
-  console.log(data?.photo)
   const {modal} = useSelector((state: RootReducer) => state.modal)
   const dispatch = useAppDispatch()
 
