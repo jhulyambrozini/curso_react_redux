@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux'
 import userSlice from './reducers/user'
 import feedSlice from './reducers/feed'
 import modalSlice from './reducers/modal'
+import photoSlice from './reducers/photo'
+
 
 import api from '../services/api'
 
@@ -12,6 +14,7 @@ const store = configureStore({
         user: userSlice,
         feed: feedSlice,
         modal: modalSlice,
+        photo: photoSlice,
         [api.reducerPath]: api.reducer
     },
     middleware: (getDefaultMiddleware) =>

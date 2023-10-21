@@ -17,7 +17,7 @@ const FeedPhotos = () => {
             photo={photo}
           />
         ))}
-      </FeedList>
+      </FeedList> 
       
     );
 };

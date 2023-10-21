@@ -9,7 +9,8 @@ type PhotosGetType = {
 type StateType = {
     list: null | PhotosType[],
     loading: boolean,
-    error: undefined | string
+    error: undefined | string,
+    page: number
 }
 
 export const getPhotosAsync = createAsyncThunk('feed/getPhotos', async (data: PhotosGetType) => {
@@ -27,6 +28,7 @@ const initialState: StateType = {
     list: [],
     loading: false,
     error: undefined,
+    page: 0
 }
 
 const feedSlice = createSlice({

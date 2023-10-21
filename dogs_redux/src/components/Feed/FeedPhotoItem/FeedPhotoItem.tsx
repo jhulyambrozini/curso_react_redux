@@ -1,19 +1,18 @@
-import { MouseEventHandler } from 'react';
-
 import { PhotoItem, Views } from './style';
 import Image from '../../../helpers/Image/Image';
 
 import { useAppDispatch } from '../../../store';
 import { openModal } from '../../../store/reducers/modal';
-
-import { usePhotoGetQuery } from '../../../services/api';
+import { getPhotoAsync } from '../../../store/reducers/photo';
 
 const FeedPhotoItem = ({ photo }: {photo: PhotosType}) => {
   const dispatch = useAppDispatch()
 
-  const handleClick: MouseEventHandler<HTMLLIElement> = () => {
+  const handleClick = () => {
     dispatch(openModal())
-    usePhotoGetQuery(photo.id)
+    console.log(photo.id)
+    const aa = dispatch(getPhotoAsync({id: photo.id}))
+    console.log(aa)
   };
 
   return (

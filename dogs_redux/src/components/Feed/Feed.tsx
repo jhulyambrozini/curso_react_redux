@@ -30,14 +30,8 @@ const Feed = ({ user }: {user: number | string}) => {
   if(!list) return null
 
   return (
-    <FeedContainer>
-      {list?.map((photo: PhotosType) => (
-          <FeedModal
-            key={photo.id}
-            photo={photo}
-          />
-        ))}
-        
+    <FeedContainer> 
+        <FeedModal />
         <FeedPhotos/>
         {list?.length === 0 ?  (
           <>

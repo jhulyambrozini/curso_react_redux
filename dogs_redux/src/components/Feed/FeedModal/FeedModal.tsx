@@ -7,13 +7,13 @@ import { Modal } from './style';
 import Error from '../../../helpers/Error';
 import Loading from '../../../helpers/Loading/Loading';
 
-import { usePhotoGetQuery } from '../../../services/api';
 
 import { RootReducer, useAppDispatch } from '../../../store';
 import { closeModal } from '../../../store/reducers/modal';
 
-const FeedModal = ({photo}: {photo: PhotosType}) => {
-  const {data, isLoading, isError} = usePhotoGetQuery(photo.id)
+const FeedModal = () => {
+  const {data, loading, error} = useSelector((state: RootReducer) => state.photo)
+  console.log(data?.photo)
   const {modal} = useSelector((state: RootReducer) => state.modal)
   const dispatch = useAppDispatch()
 
@@ -27,8 +27,8 @@ const FeedModal = ({photo}: {photo: PhotosType}) => {
 
   return (
     <Modal onClick={handleOutsiteClick}>
-      {isError && <Error error='foto não encontrada.' />}
-      {isLoading && <Loading />}
+      {error && <Error error='foto não encontrada.' />}
+      {loading && <Loading />}
       {data && (
         <PhotoContent
           single={false}

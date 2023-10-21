@@ -69,7 +69,7 @@ const api = createApi({
                     body: data.formData
             })
         }),
-        photoGet: builder.query<any, number | string>({
+        photoGet: builder.query<DataFeedPhoto, number | string>({
             query: (id) => ({
                 url: `/api/photo/${id}`,
                 method: 'GET',

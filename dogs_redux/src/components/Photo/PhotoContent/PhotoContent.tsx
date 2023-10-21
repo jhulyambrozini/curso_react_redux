@@ -25,6 +25,8 @@ const PhotoContent = ({ data, single }: PhotoContentProps) => {
   const { photo, comments } = data;
   const user = useSelector((state: RootReducer) => state.user)
 
+  if(!data) return null
+
   return (
     <PhotoContainer single={single}>
       <ImageContainer single={single}>
