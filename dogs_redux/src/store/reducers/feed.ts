@@ -13,7 +13,7 @@ type StateType = {
 }
 
 export const getPhotosAsync = createAsyncThunk('feed/getPhotos', async (data: PhotosGetType) => {
-    const response = await fetch(`https://dogsapi.origamid.dev/json/api/photo/?_page=${data.page}&_total=6&_user=${data.user}`, {
+    const response = await fetch(`https://dogsapi.origamid.dev/json/api/photo/?_page=${data.page}&_total=3&_user=${data.user}`, {
         method: 'GET',
         cache: 'no-store'
     })

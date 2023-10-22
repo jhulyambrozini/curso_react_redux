@@ -42,7 +42,9 @@ const Feed = ({ user }: {user: number | string}) => {
         >
           Não existem mais postagens.
         </p>
-        <ButtonMore title='recarregar'  onClick={() => setPages(1)}>RECARREGAR</ButtonMore>
+        <ButtonMore title='recarregar'  onClick={() => setPages(1)}>
+        <MoreSvg/>
+        </ButtonMore>
          </>
         ) : (
           <ButtonMore title='Mais fotos' onClick={() => setPages(page + 1)}>

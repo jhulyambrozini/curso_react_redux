@@ -1,4 +1,3 @@
-import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import PhotoContent from '../../components/Photo/PhotoContent/PhotoContent';
@@ -7,14 +6,13 @@ import Loading from '../../helpers/Loading/Loading';
 import Error from '../../helpers/Error';
 import Head from '../../helpers/Head';
 
-import { usePhotoGetQuery } from '../../services/api';
-import { useAppDispatch } from '../../store';
+import { RootReducer, useAppDispatch } from '../../store';
 import { closeModal } from '../../store/reducers/modal';
+import { useSelector } from 'react-redux';
 
 const Photo = () => {
-  const { id } = useParams();
   const [shouldSkip, setShouldSkip] = useState(false)
-  const {data, isError, isLoading} = usePhotoGetQuery(id!)
+  const {data, loading, error} = useSelector((state: RootReducer) => state.photo)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -24,8 +22,8 @@ const Photo = () => {
     dispatch(closeModal())
   }, [data, shouldSkip, dispatch]);
 
-  if (isError) return <Error error='Foto não encontrada.' />;
-  if (isLoading) return <Loading />;
+  if (error) return <Error error='Foto não encontrada.' />;
+  if (loading) return <Loading />;
   if (!data) return null;
 
   const dataValid = data as DataFeedPhoto;

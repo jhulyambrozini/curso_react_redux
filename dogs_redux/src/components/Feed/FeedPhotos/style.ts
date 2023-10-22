@@ -4,7 +4,7 @@ export const FeedList = styled.ul`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
   justify-items: center;
 
   @media (max-width: 40rem) {

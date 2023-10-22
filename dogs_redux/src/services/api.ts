@@ -69,13 +69,6 @@ const api = createApi({
                     body: data.formData
             })
         }),
-        photoGet: builder.query<DataFeedPhoto, number | string>({
-            query: (id) => ({
-                url: `/api/photo/${id}`,
-                method: 'GET',
-                cache: 'no-store'
-            })
-        }),
         commentPost: builder.mutation<any, CommentPostType>({
             query: (data) => ({
                 url: `/api/comment/${data.id}`,
@@ -136,7 +129,6 @@ export const {
     usePasswordLostMutation,
     usePasswordResetMutation,
     usePhotoDeleteMutation,
-    usePhotoGetQuery,
     usePhotoPostMutation,
     useStatisticsGetQuery
 } = api

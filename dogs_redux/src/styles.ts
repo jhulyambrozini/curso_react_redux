@@ -166,4 +166,6 @@ export const GlobalStyle = createGlobalStyle`
     .VictoryContainer {
         height: initial !important;
     }
+
+
 `;
